@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 // Image Asset Definitions
-const HERO_IMAGE = "/assets/elevation.webp";
+const HERO_IMAGE = "/assets/unnatii-banner.webp";
 const ENQUIRE_BG_IMAGE = "/assets/terrace-garden.webp";
 const BRAND_LOGO = "/assets/krishna-group-logo.svg";
 
@@ -118,7 +118,7 @@ const KEY_HIGHLIGHTS = [
 ];
 
 const COMMUNITY_PERKS = [
-  "Common Area Flooring - Granite / Designer Tiles / Kota Stone",
+  "Common Area Flooring – Granite / Designer Tiles / Kota Stone",
   "100% Power Back up",
   "Paver Blocks for driveways",
   "Anti-Termite Treatment",
@@ -126,6 +126,13 @@ const COMMUNITY_PERKS = [
   "Video Door Phone, Security System with Access Cards",
   "Provision for DTH",
   "CCTV Camera to Monitor",
+  "Intercom Connection to the security",
+  "1 - Passenger Lift",
+  "EV Charging Provisions",
+  "Reticulated Gas Supply",
+  "Solar lighting for common areas.",
+  "Yoga Deck",
+  "Landscape Terrace",
 ];
 
 const LOCATION_HIGHLIGHTS = [
@@ -267,29 +274,26 @@ export default function Home() {
     <div className="bg-background text-foreground">
       {/* Header Section */}
       <header
-        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
-          isScrolled
-            ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
-            : "absolute bg-transparent py-6 text-paper"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${isScrolled
+          ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
+          : "absolute bg-transparent py-6 text-paper"
+          }`}
       >
         <div className="container-editorial flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 leading-none z-50">
             <img
               src={BRAND_LOGO}
               alt="Krishna Group logo"
-              className={`h-9 w-auto transition-all duration-300 ${
-                isScrolled ? "" : "brightness-0 invert"
-              }`}
+              className={`h-12 w-auto transition-all duration-300 ${isScrolled ? "" : "brightness-0 invert"
+                }`}
             />
             <div className="flex flex-col">
               <span className="font-display text-2xl tracking-wide font-semibold">
                 UNNATTI
               </span>
               <span
-                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${
-                  isScrolled ? "text-muted-foreground" : "text-paper/70"
-                }`}
+                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${isScrolled ? "text-muted-foreground" : "text-paper/70"
+                  }`}
               >
                 Krishna Group · Est. 1983
               </span>
@@ -298,9 +302,8 @@ export default function Home() {
 
           {/* Desktop Navigation */}
           <nav
-            className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${
-              isScrolled ? "text-ink/80" : "text-paper/90"
-            }`}
+            className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${isScrolled ? "text-ink/80" : "text-paper/90"
+              }`}
           >
             <a href="#overview" className="nav-link-minimal hover:text-current transition-colors">
               Overview
@@ -318,14 +321,13 @@ export default function Home() {
               Location
             </a>
           </nav>
-          
+
           <a
             href="#enquire"
-            className={`hidden md:inline-flex items-center gap-2 border text-xs uppercase tracking-[0.24em] px-5 py-2.5 transition-colors font-semibold ${
-              isScrolled
-                ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
-                : "border-paper/40 text-paper hover:bg-paper hover:text-ink"
-            }`}
+            className={`hidden md:inline-flex items-center gap-2 border text-xs uppercase tracking-[0.24em] px-5 py-2.5 transition-colors font-semibold ${isScrolled
+              ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
+              : "border-paper/40 text-paper hover:bg-paper hover:text-ink"
+              }`}
           >
             Enquire
           </a>
@@ -337,19 +339,16 @@ export default function Home() {
             aria-label="Toggle menu"
           >
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-              } ${isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""}`}
+              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+                } ${isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""}`}
             />
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-              } ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+                } ${isMobileMenuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-              } ${isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""}`}
+              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+                } ${isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""}`}
             />
           </button>
         </div>
@@ -357,8 +356,8 @@ export default function Home() {
         {/* Mobile Navigation Drawer */}
         <div
           className={`fixed inset-0 bg-ink/95 backdrop-blur-lg z-40 md:hidden flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${isMobileMenuOpen
-              ? "opacity-100 pointer-events-auto translate-x-0"
-              : "opacity-0 pointer-events-none translate-x-full"
+            ? "opacity-100 pointer-events-auto translate-x-0"
+            : "opacity-0 pointer-events-none translate-x-full"
             }`}
         >
           <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
@@ -413,7 +412,7 @@ export default function Home() {
         <img
           src={HERO_IMAGE}
           alt="Krishna Unnatti building exterior elevation"
-          className="absolute inset-0 h-full w-full object-cover animate-slow-zoom"
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <div
           className="absolute inset-0"
@@ -591,8 +590,8 @@ export default function Home() {
                 key={label}
                 onClick={() => setActiveFloorPlanIndex(idx)}
                 className={`px-5 py-2.5 text-xs uppercase tracking-[0.24em] border transition-colors font-semibold ${activeFloorPlanIndex === idx
-                    ? "bg-ink text-paper border-ink"
-                    : "border-border text-muted-foreground hover:border-ink hover:text-ink"
+                  ? "bg-ink text-paper border-ink"
+                  : "border-border text-muted-foreground hover:border-ink hover:text-ink"
                   }`}
               >
                 {label}
@@ -631,7 +630,7 @@ export default function Home() {
               specified well.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-paper/10 reveal-child reveal-delay-200">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 reveal-child reveal-delay-200">
             {KEY_HIGHLIGHTS.map((item) => {
               const IconComponent = item.icon;
               return (
