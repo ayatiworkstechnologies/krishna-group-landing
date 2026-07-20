@@ -2,6 +2,21 @@
 
 import React, { useState, useEffect } from "react";
 import Lenis from "lenis";
+import {
+  Layers,
+  Building,
+  ArrowUpDown,
+  Grid,
+  Grid3X3,
+  Brush,
+  Palette,
+  DoorOpen,
+  Maximize,
+  Wind,
+  Utensils,
+  Bath,
+  Zap,
+} from "lucide-react";
 
 // Image Asset Definitions
 const HERO_IMAGE = "/assets/elevation.webp";
@@ -38,54 +53,67 @@ const KEY_HIGHLIGHTS = [
   {
     title: "Foundation",
     body: "Pile foundation shall be as per structural drawing.",
+    icon: Layers,
   },
   {
     title: "Structure",
     body: "R.C.C Framed Structure.",
+    icon: Building,
   },
   {
     title: "Ceiling Height",
     body: "False Ceiling with light fixtures. 10′ 6″ Floor to ceiling Clear height (without false ceiling).",
+    icon: ArrowUpDown,
   },
   {
     title: "Walls",
     body: "External Walls in Cement Blocks. Partition Walls in Cement Blocks.",
+    icon: Grid,
   },
   {
     title: "Flooring",
     body: "Marble Flooring in Living & Dining. 4 X 4 Vitrified Tiles for Flooring in all Bedrooms & Kitchen. Anti-Skid tiles in Restrooms & Balcony.",
+    icon: Grid3X3,
   },
   {
     title: "Plastering",
     body: "Internal walls are plastered in gypsum. External walls are plastered in cement mortar.",
+    icon: Brush,
   },
   {
     title: "Painting",
     body: "Interiors: Emulsion premium paint with two coat asian / berger / dulux putty. Exteriors: Texture with asian / berger / dulux putty paint.",
+    icon: Palette,
   },
   {
     title: "Doors",
     body: "Engineered wooden door frame and shutter with teak wood veneer finish for main door. Engineered wood veneer / ABS frame & shutter for bedrooms and restrooms.",
+    icon: DoorOpen,
   },
   {
     title: "Windows",
     body: "UPVC with Sliding / openable glass shutters and MS grill as per the architect’s design.",
+    icon: Maximize,
   },
   {
     title: "Balcony",
     body: "Glass fitted UPVC french doors.",
+    icon: Wind,
   },
   {
     title: "Kitchen & Utility Area",
     body: "2′ Wall dado vitrified tiles above the kitchen platform. Provision for water purifying system in kitchen. Provision for washing machine, sink and tap in utility.",
+    icon: Utensils,
   },
   {
     title: "Restrooms",
     body: "Vitrified wall tiles up to false ceiling height. Kohler / Toto / Roca or equivalent wall mounted closets, wash basins, diverters & CP fittings. Shower partition in master restroom.",
+    icon: Bath,
   },
   {
     title: "Electrical",
     body: "100% Power Backup. VRV A/C in Living, Dining and all Bedrooms. Three Phase Power Supply with fully concealed wiring & modular switches. Provision for geyser, exhaust fan & chimney.",
+    icon: Zap,
   },
 ];
 
@@ -138,6 +166,16 @@ export default function Home() {
   const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedLocationCategory, setExpandedLocationCategory] = useState<string | null>("Education");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll event listener for sticky header transition
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Initialize Lenis smooth scrolling with bidirectional anchor navigation
   useEffect(() => {
@@ -222,48 +260,72 @@ export default function Home() {
 
   const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("Thank you — we'll be in touch shortly.");
+    alert("Thank you -we'll be in touch shortly.");
   };
 
   return (
     <div className="bg-background text-foreground">
       {/* Header Section */}
-      <header className="absolute top-0 left-0 right-0 z-30">
-        <div className="container-editorial flex items-center justify-between py-6">
+      <header
+        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+          isScrolled
+            ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
+            : "absolute bg-transparent py-6 text-paper"
+        }`}
+      >
+        <div className="container-editorial flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 leading-none z-50">
-            <img src={BRAND_LOGO} alt="Krishna Group logo" className="h-9 w-auto brightness-0 invert" />
+            <img
+              src={BRAND_LOGO}
+              alt="Krishna Group logo"
+              className={`h-9 w-auto transition-all duration-300 ${
+                isScrolled ? "" : "brightness-0 invert"
+              }`}
+            />
             <div className="flex flex-col">
-              <span className="font-display text-2xl tracking-wide text-paper font-semibold">
+              <span className="font-display text-2xl tracking-wide font-semibold">
                 UNNATTI
               </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-paper/70 mt-1 font-sans">
+              <span
+                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${
+                  isScrolled ? "text-muted-foreground" : "text-paper/70"
+                }`}
+              >
                 Krishna Group · Est. 1983
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm text-paper/90 font-medium">
-            <a href="#overview" className="nav-link-minimal hover:text-paper transition-colors">
+          <nav
+            className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${
+              isScrolled ? "text-ink/80" : "text-paper/90"
+            }`}
+          >
+            <a href="#overview" className="nav-link-minimal hover:text-current transition-colors">
               Overview
             </a>
-            <a href="#gallery" className="nav-link-minimal hover:text-paper transition-colors">
+            <a href="#gallery" className="nav-link-minimal hover:text-current transition-colors">
               Gallery
             </a>
-            <a href="#plans" className="nav-link-minimal hover:text-paper transition-colors">
+            <a href="#plans" className="nav-link-minimal hover:text-current transition-colors">
               Floor Plans
             </a>
-            <a href="#specs" className="nav-link-minimal hover:text-paper transition-colors">
+            <a href="#specs" className="nav-link-minimal hover:text-current transition-colors">
               Specifications
             </a>
-            <a href="#location" className="nav-link-minimal hover:text-paper transition-colors">
+            <a href="#location" className="nav-link-minimal hover:text-current transition-colors">
               Location
             </a>
           </nav>
           
           <a
             href="#enquire"
-            className="hidden md:inline-flex items-center gap-2 border border-paper/40 text-paper text-xs uppercase tracking-[0.24em] px-5 py-2.5 hover:bg-paper hover:text-ink transition-colors font-semibold"
+            className={`hidden md:inline-flex items-center gap-2 border text-xs uppercase tracking-[0.24em] px-5 py-2.5 transition-colors font-semibold ${
+              isScrolled
+                ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
+                : "border-paper/40 text-paper hover:bg-paper hover:text-ink"
+            }`}
           >
             Enquire
           </a>
@@ -275,30 +337,29 @@ export default function Home() {
             aria-label="Toggle menu"
           >
             <span
-              className={`w-6 h-0.5 bg-paper transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`w-6 h-0.5 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""}`}
             />
             <span
-              className={`w-6 h-0.5 bg-paper transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
+              className={`w-6 h-0.5 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`w-6 h-0.5 bg-paper transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
+              className={`w-6 h-0.5 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""}`}
             />
           </button>
         </div>
 
         {/* Mobile Navigation Drawer */}
         <div
-          className={`fixed inset-0 bg-ink/95 backdrop-blur-lg z-40 md:hidden flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
-            isMobileMenuOpen
+          className={`fixed inset-0 bg-ink/95 backdrop-blur-lg z-40 md:hidden flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${isMobileMenuOpen
               ? "opacity-100 pointer-events-auto translate-x-0"
               : "opacity-0 pointer-events-none translate-x-full"
-          }`}
+            }`}
         >
           <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
             <a
@@ -374,7 +435,7 @@ export default function Home() {
             </h1>
             <p className="mt-8 max-w-xl text-paper/80 text-base md:text-lg leading-relaxed font-sans font-light">
               Krishna Unnatti is a boutique residence of just five premium 3 BHK
-              homes — each 2,082 sq.ft — designed for those who value privacy,
+              homes -each 2,082 sq.ft -designed for those who value privacy,
               comfort and a prime Chennai address.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -432,7 +493,7 @@ export default function Home() {
           <div className="md:col-span-7 space-y-6 text-muted-foreground leading-relaxed md:pt-4 font-sans font-light reveal-child reveal-delay-150">
             <p className="text-lg text-foreground font-normal">
               Tucked into one of Chennai's most storied neighbourhoods, Unnatti
-              is a quiet answer to the city's noise — homes shaped by
+              is a quiet answer to the city's noise -homes shaped by
               daylight, marble and considered detail.
             </p>
             <p>
@@ -442,7 +503,7 @@ export default function Home() {
             </p>
             <p>
               A serene terrace garden crowns Unnatti, offering a private
-              escape with skyline views — the kind of quiet luxury that Alwarpet
+              escape with skyline views -the kind of quiet luxury that Alwarpet
               was made for.
             </p>
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border mt-10">
@@ -529,11 +590,10 @@ export default function Home() {
               <button
                 key={label}
                 onClick={() => setActiveFloorPlanIndex(idx)}
-                className={`px-5 py-2.5 text-xs uppercase tracking-[0.24em] border transition-colors font-semibold ${
-                  activeFloorPlanIndex === idx
+                className={`px-5 py-2.5 text-xs uppercase tracking-[0.24em] border transition-colors font-semibold ${activeFloorPlanIndex === idx
                     ? "bg-ink text-paper border-ink"
                     : "border-border text-muted-foreground hover:border-ink hover:text-ink"
-                }`}
+                  }`}
               >
                 {label}
               </button>
@@ -567,24 +627,32 @@ export default function Home() {
             </div>
             <p className="md:col-span-6 md:col-start-7 text-paper/70 leading-relaxed md:pt-6 font-sans font-light reveal-child reveal-delay-100">
               Materials from Kohler, Toto and Roca. Italian marble, engineered
-              teak, UPVC glazing and VRV climate control — specified once and
+              teak, UPVC glazing and VRV climate control -specified once and
               specified well.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-paper/10 reveal-child reveal-delay-200">
-            {KEY_HIGHLIGHTS.map((item) => (
-              <div
-                key={item.title}
-                className="bg-ink p-8 hover:bg-ink/70 transition-all duration-300 group hover:shadow-[inset_0_0_0_1px_var(--gold)]"
-              >
-                <div className="text-gold font-display text-2xl mb-3">
-                  {item.title}
+            {KEY_HIGHLIGHTS.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="bg-ink p-8 hover:bg-ink/70 transition-all duration-300 group hover:shadow-[inset_0_0_0_1px_var(--gold)] flex flex-col justify-between min-h-[220px]"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-gold font-display text-2xl">
+                        {item.title}
+                      </div>
+                      <IconComponent className="h-6 w-6 text-gold/60 group-hover:text-gold transition-colors duration-300" />
+                    </div>
+                    <p className="text-paper/70 text-sm leading-relaxed font-sans font-light">
+                      {item.body}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-paper/70 text-sm leading-relaxed font-sans font-light">
-                  {item.body}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -629,35 +697,27 @@ export default function Home() {
             </p>
             <h2 className="mt-6 text-4xl md:text-5xl">Alwarpet, on foot.</h2>
             <p className="mt-6 text-muted-foreground leading-relaxed font-sans font-light">
-              Schools, hospitals, metro, temples, cinema — the essential city
+              Schools, hospitals, metro, temples, cinema -the essential city
               sits within a fifteen-minute drive, most of it within a walk.
             </p>
-            <div className="mt-10 aspect-square bg-background border border-border relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="text-center">
-                  <div className="w-3 h-3 rounded-full bg-brick mx-auto animate-pulse" />
-                  <div className="mt-2 font-display text-xl">Alwarpet</div>
-                  <div className="text-xs uppercase tracking-[0.24em] text-muted-foreground font-sans mt-1">
-                    Chennai · 600 018
-                  </div>
-                </div>
-              </div>
-              <svg
-                className="absolute inset-0 w-full h-full text-border"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0,60 Q40,55 50,50 T100,45"
-                  stroke="currentColor"
-                  strokeWidth="0.3"
-                  fill="none"
-                />
-                <path d="M20,0 L20,100" stroke="currentColor" strokeWidth="0.3" />
-                <path d="M75,0 L75,100" stroke="currentColor" strokeWidth="0.3" />
-                <path d="M0,80 L100,80" stroke="currentColor" strokeWidth="0.3" />
-                <path d="M0,30 L100,30" stroke="currentColor" strokeWidth="0.3" />
-              </svg>
+            <a
+              href="https://www.google.com/maps/place/27Q3%2BR7V,+Chennai,+Tamil+Nadu,+India/@13.0396125,80.2531719?hl=en-GB"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-ink border-b border-ink/40 pb-1 hover:border-gold hover:text-gold transition-colors mt-6 font-semibold"
+            >
+              View on Google Maps →
+            </a>
+            <div className="mt-10 aspect-square bg-background border border-border relative overflow-hidden group hover:border-gold transition-colors duration-300">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.7725227763665!2d80.2505969758784!3d13.039612487282436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0xc9a9a9e7b1d9dacd!2s27Q3%2BR7V%2C%20Chennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1716200000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="filter grayscale contrast-125 opacity-85 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+              />
             </div>
           </div>
           <div className="md:col-span-7 space-y-4 md:pt-4 reveal-child reveal-delay-200">
@@ -678,17 +738,15 @@ export default function Home() {
                       {category.group}
                     </span>
                     <span
-                      className={`text-gold transition-transform duration-300 text-xs ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
+                      className={`text-gold transition-transform duration-300 text-xs ${isOpen ? "rotate-180" : ""
+                        }`}
                     >
                       ▼
                     </span>
                   </button>
                   <div
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                      isOpen ? "max-h-[500px] border-t border-border opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-                    }`}
+                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-[500px] border-t border-border opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+                      }`}
                   >
                     <div className="p-6 divide-y divide-border bg-cream/30">
                       {category.items.map(([place, dist]) => (
@@ -735,7 +793,7 @@ export default function Home() {
             </h2>
             <p className="mt-6 text-paper/70 leading-relaxed max-w-md font-sans font-light">
               7 homes. A single address. Reach us for the brochure, floor
-              plans and pricing — we'll respond within one working day.
+              plans and pricing -we'll respond within one working day.
             </p>
             <div className="mt-10 space-y-3 text-paper/80 text-sm font-sans">
               <div className="font-semibold">Krishna Group · Est. 1983</div>
