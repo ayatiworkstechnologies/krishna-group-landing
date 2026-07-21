@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Lenis from "lenis";
 import {
   Layers,
@@ -170,6 +171,7 @@ const LOCATION_HIGHLIGHTS = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedLocationCategory, setExpandedLocationCategory] = useState<string | null>("Education");
@@ -268,13 +270,14 @@ export default function Home() {
 
   const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("Thank you -we'll be in touch shortly.");
+    router.push("/thank-you");
   };
 
   const handleBrochureSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsBrochureModalOpen(false);
     window.open("https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf", "_blank");
+    router.push("/thank-you");
   };
 
   return (
