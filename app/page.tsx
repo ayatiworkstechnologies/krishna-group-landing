@@ -1,24 +1,24 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import Lenis from "lenis";
 import {
-  Layers,
-  Building,
-  ArrowUpDown,
-  Grid,
-  Grid3X3,
-  Brush,
-  Palette,
-  DoorOpen,
-  Maximize,
-  Wind,
-  Utensils,
-  Bath,
-  Zap,
+    Layers,
+    Building,
+    ArrowUpDown,
+    Grid,
+    Grid3X3,
+    Brush,
+    Palette,
+    DoorOpen,
+    Maximize,
+    Wind,
+    Utensils,
+    Bath,
+    Zap
 } from "lucide-react";
 
 // Image Asset Definitions
@@ -27,326 +27,381 @@ const ENQUIRE_BG_IMAGE = "/assets/terrace-garden.webp";
 const BRAND_LOGO = "/assets/krishna-group-logo.svg";
 
 const GALLERY_IMAGES = [
-  { src: "/assets/living-area.jpg", label: "Living Area" },
-  { src: "/assets/bedroom.webp", label: "Bed Room" },
-  { src: "/assets/kitchen.webp", label: "Kitchen" },
-  { src: "/assets/lobby-1.webp", label: "Lobby" },
-  { src: "/assets/bathroom.webp", label: "Bath Room" },
-  { src: "/assets/balcony.webp", label: "Balcony" },
-  { src: "/assets/terrace-garden.webp", label: "Terrace Garden" },
+    {
+        src: "/assets/living-area.jpg",
+        label: "Living Area"
+    },
+    {
+        src: "/assets/bedroom.webp",
+        label: "Bed Room"
+    },
+    {
+        src: "/assets/kitchen.webp",
+        label: "Kitchen"
+    },
+    {
+        src: "/assets/lobby-1.webp",
+        label: "Lobby"
+    }, {
+        src: "/assets/bathroom.webp",
+        label: "Bath Room"
+    }, {
+        src: "/assets/balcony.webp",
+        label: "Balcony"
+    }, {
+        src: "/assets/terrace-garden.webp",
+        label: "Terrace Garden"
+    },
 ];
 
 const FLOOR_PLAN_LABELS = [
-  "Stilt Plan",
-  "Typical Floor Plan",
-  "Typical Plan Unit A",
-  "Typical Plan Unit B",
-  "Terrace Plan",
+    "Stilt Plan",
+    "Typical Floor Plan",
+    "Typical Plan Unit A",
+    "Typical Plan Unit B",
+    "Terrace Plan",
 ];
 
 const FLOOR_PLAN_IMAGES = [
-  "/assets/stilt-plan.webp",
-  "/assets/typical-floor-plan.webp",
-  "/assets/unit-a-plan.png",
-  "/assets/unit-b-plan.png",
-  "/assets/terrace-plan.webp",
+    "/assets/stilt-plan.webp",
+    "/assets/typical-floor-plan.webp",
+    "/assets/unit-a-plan.png",
+    "/assets/unit-b-plan.png",
+    "/assets/terrace-plan.webp",
 ];
 
 const KEY_HIGHLIGHTS = [
-  {
-    title: "Foundation",
-    body: "Pile foundation shall be as per structural drawing.",
-    icon: Layers,
-  },
-  {
-    title: "Structure",
-    body: "R.C.C Framed Structure.",
-    icon: Building,
-  },
-  {
-    title: "Ceiling Height",
-    body: "False Ceiling with light fixtures. 10′ 6″ Floor to ceiling Clear height (without false ceiling).",
-    icon: ArrowUpDown,
-  },
-  {
-    title: "Walls",
-    body: "External Walls in Cement Blocks. Partition Walls in Cement Blocks.",
-    icon: Grid,
-  },
-  {
-    title: "Flooring",
-    body: "Marble Flooring in Living & Dining. 4 X 4 Vitrified Tiles for Flooring in all Bedrooms & Kitchen. Anti-Skid tiles in Restrooms & Balcony.",
-    icon: Grid3X3,
-  },
-  {
-    title: "Plastering",
-    body: "Internal walls are plastered in gypsum. External walls are plastered in cement mortar.",
-    icon: Brush,
-  },
-  {
-    title: "Painting",
-    body: "Interiors: Emulsion premium paint with two coat asian / berger / dulux putty. Exteriors: Texture with asian / berger / dulux putty paint.",
-    icon: Palette,
-  },
-  {
-    title: "Doors",
-    body: "Engineered wooden door frame and shutter with teak wood veneer finish for main door. Engineered wood veneer / ABS frame & shutter for bedrooms and restrooms.",
-    icon: DoorOpen,
-  },
-  {
-    title: "Windows",
-    body: "UPVC with Sliding / openable glass shutters and MS grill as per the architect’s design.",
-    icon: Maximize,
-  },
-  {
-    title: "Balcony",
-    body: "Glass fitted UPVC french doors.",
-    icon: Wind,
-  },
-  {
-    title: "Kitchen & Utility Area",
-    body: "2′ Wall dado vitrified tiles above the kitchen platform. Provision for water purifying system in kitchen. Provision for washing machine, sink and tap in utility.",
-    icon: Utensils,
-  },
-  {
-    title: "Restrooms",
-    body: "Vitrified wall tiles up to false ceiling height. Kohler / Toto / Roca or equivalent wall mounted closets, wash basins, diverters & CP fittings. Shower partition in master restroom.",
-    icon: Bath,
-  },
-  {
-    title: "Electrical",
-    body: "100% Power Backup. VRV A/C in Living, Dining and all Bedrooms. Three Phase Power Supply with fully concealed wiring & modular switches. Provision for geyser, exhaust fan & chimney.",
-    icon: Zap,
-  },
+    {
+        title: "Foundation",
+        body: "Pile foundation shall be as per structural drawing.",
+        icon: Layers
+    },
+    {
+        title: "Structure",
+        body: "R.C.C Framed Structure.",
+        icon: Building
+    },
+    {
+        title: "Ceiling Height",
+        body: "False Ceiling with light fixtures. 10′ 6″ Floor to ceiling Clear height (without false ceiling).",
+        icon: ArrowUpDown
+    },
+    {
+        title: "Walls",
+        body: "External Walls in Cement Blocks. Partition Walls in Cement Blocks.",
+        icon: Grid
+    }, {
+        title: "Flooring",
+        body: "Marble Flooring in Living & Dining. 4 X 4 Vitrified Tiles for Flooring in all Bedrooms & Kitchen. Anti-Skid tiles in Restrooms & Balcony.",
+        icon: Grid3X3
+    }, {
+        title: "Plastering",
+        body: "Internal walls are plastered in gypsum. External walls are plastered in cement mortar.",
+        icon: Brush
+    }, {
+        title: "Painting",
+        body: "Interiors: Emulsion premium paint with two coat asian / berger / dulux putty. Exteriors: Texture with asian / berger / dulux putty paint.",
+        icon: Palette
+    }, {
+        title: "Doors",
+        body: "Engineered wooden door frame and shutter with teak wood veneer finish for main door. Engineered wood veneer / ABS frame & shutter for bedrooms and restrooms.",
+        icon: DoorOpen
+    }, {
+        title: "Windows",
+        body: "UPVC with Sliding / openable glass shutters and MS grill as per the architect’s design.",
+        icon: Maximize
+    }, {
+        title: "Balcony",
+        body: "Glass fitted UPVC french doors.",
+        icon: Wind
+    }, {
+        title: "Kitchen & Utility Area",
+        body: "2′ Wall dado vitrified tiles above the kitchen platform. Provision for water purifying system in kitchen. Provision for washing machine, sink and tap in utility.",
+        icon: Utensils
+    }, {
+        title: "Restrooms",
+        body: "Vitrified wall tiles up to false ceiling height. Kohler / Toto / Roca or equivalent wall mounted closets, wash basins, diverters & CP fittings. Shower partition in master restroom.",
+        icon: Bath
+    }, {
+        title: "Electrical",
+        body: "100% Power Backup. VRV A/C in Living, Dining and all Bedrooms. Three Phase Power Supply with fully concealed wiring & modular switches. Provision for geyser, exhaust fan & chimney.",
+        icon: Zap
+    },
 ];
 
 const COMMUNITY_PERKS = [
-  "Common Area Flooring – Granite / Designer Tiles / Kota Stone",
-  "100% Power Back up",
-  "Paver Blocks for driveways",
-  "Anti-Termite Treatment",
-  "Common Toilet for Drivers / Maids",
-  "Video Door Phone, Security System with Access Cards",
-  "Provision for DTH",
-  "CCTV Camera to Monitor",
-  "Intercom Connection to the security",
-  "1 - Passenger Lift",
-  "EV Charging Provisions",
-  "Reticulated Gas Supply",
-  "Solar lighting for common areas.",
-  "Yoga Deck",
-  "Landscape Terrace",
+    "Common Area Flooring – Granite / Designer Tiles / Kota Stone",
+    "100% Power Back up",
+    "Paver Blocks for driveways",
+    "Anti-Termite Treatment",
+    "Common Toilet for Drivers / Maids",
+    "Video Door Phone, Security System with Access Cards",
+    "Provision for DTH",
+    "CCTV Camera to Monitor",
+    "Intercom Connection to the security",
+    "1 - Passenger Lift",
+    "EV Charging Provisions",
+    "Reticulated Gas Supply",
+    "Solar lighting for common areas.",
+    "Yoga Deck",
+    "Landscape Terrace",
 ];
 
 const LOCATION_HIGHLIGHTS = [
-  {
-    group: "Education",
-    items: [
-      ["MCTM Chidambaram International", "650 m"],
-      ["Justice Basher Ahmed College", "1.0 km"],
-      ["Time Kids School", "1.3 km"],
-      ["Stella Maris College", "2.1 km"],
-    ],
-  },
-  {
-    group: "Healthcare",
-    items: [
-      ["Kauvery Hospital", "450 m"],
-      ["Apollo Dental", "1.2 km"],
-    ],
-  },
-  {
-    group: "Transport",
-    items: [
-      ["Teynampet Metro", "1.4 km"],
-      ["AGDMS Metro", "1.4 km"],
-    ],
-  },
-  {
-    group: "Leisure",
-    items: [
-      ["Sai Baba Temple", "1.9 km"],
-      ["Semmozhi Poonga", "2.4 km"],
-      ["AGS Cinemas", "3.2 km"],
-    ],
-  },
+    {
+        group: "Education",
+        items: [
+            [
+                "MCTM Chidambaram International", "650 m"
+            ],
+            [
+                "Justice Basher Ahmed College", "1.0 km"
+            ],
+            [
+                "Time Kids School", "1.3 km"
+            ],
+            [
+                "Stella Maris College", "2.1 km"
+            ],
+        ]
+    }, {
+        group: "Healthcare",
+        items: [
+            [
+                "Kauvery Hospital", "450 m"
+            ],
+            [
+                "Apollo Dental", "1.2 km"
+            ],
+        ]
+    }, {
+        group: "Transport",
+        items: [
+            [
+                "Teynampet Metro", "1.4 km"
+            ],
+            [
+                "AGDMS Metro", "1.4 km"
+            ],
+        ]
+    }, {
+        group: "Leisure",
+        items: [
+            [
+                "Sai Baba Temple", "1.9 km"
+            ],
+            [
+                "Semmozhi Poonga", "2.4 km"
+            ],
+            [
+                "AGS Cinemas", "3.2 km"
+            ],
+        ]
+    },
 ];
 
 export default function Home() {
-  const router = useRouter();
-  const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [expandedLocationCategory, setExpandedLocationCategory] = useState<string | null>("Education");
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
+    const router = useRouter();
+    const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [expandedLocationCategory, setExpandedLocationCategory] = useState < string | null > ("Education");
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
-  // Scroll event listener for sticky header transition
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Scroll event listener for sticky header transition
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener("scroll", handleScroll, {passive: true});
+        return() => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
-  // Initialize Lenis smooth scrolling with bidirectional anchor navigation
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest("a");
-      if (anchor && anchor.getAttribute("href")?.startsWith("#")) {
-        const targetId = anchor.getAttribute("href");
-        if (targetId) {
-          if (targetId === "#") {
-            e.preventDefault();
-            lenis.scrollTo(0);
-          } else {
-            const targetEl = document.querySelector(targetId) as HTMLElement;
-            if (targetEl) {
-              e.preventDefault();
-              lenis.scrollTo(targetEl);
-              setIsMobileMenuOpen(false);
-            }
-          }
-        }
-      }
-    };
-
-    document.addEventListener("click", handleAnchorClick);
-
-    return () => {
-      lenis.destroy();
-      document.removeEventListener("click", handleAnchorClick);
-    };
-  }, []);
-
-  // Prevent scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isMobileMenuOpen]);
-
-  // Intersection Observer for bidirectional reveal scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-active");
-          } else {
-            entry.target.classList.remove("reveal-active");
-          }
+    // Initialize Lenis smooth scrolling with bidirectional anchor navigation
+    useEffect(() => {
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
         });
-      },
-      {
-        threshold: 0.05,
-        rootMargin: "-20px 0px -20px 0px",
-      }
-    );
 
-    const revealElements = document.querySelectorAll(".reveal-on-scroll");
-    revealElements.forEach((el) => observer.observe(el));
+        function raf(time: number) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
 
-    return () => {
-      revealElements.forEach((el) => observer.unobserve(el));
+        requestAnimationFrame(raf);
+
+        const handleAnchorClick = (e : MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const anchor = target.closest("a");
+            if (anchor && anchor.getAttribute("href") ?. startsWith("#")) {
+                const targetId = anchor.getAttribute("href");
+                if (targetId) {
+                    if (targetId === "#") {
+                        e.preventDefault();
+                        lenis.scrollTo(0);
+                    } else {
+                        const targetEl = document.querySelector(targetId)as HTMLElement;
+                        if (targetEl) {
+                            e.preventDefault();
+                            lenis.scrollTo(targetEl);
+                            setIsMobileMenuOpen(false);
+                        }
+                    }
+                }
+            }
+        };
+
+        document.addEventListener("click", handleAnchorClick);
+
+        return() => {
+            lenis.destroy();
+            document.removeEventListener("click", handleAnchorClick);
+        };
+    }, []);
+
+    // Prevent scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return() => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isMobileMenuOpen]);
+
+    // Intersection Observer for bidirectional reveal scroll animations
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("reveal-active");
+                } else {
+                    entry.target.classList.remove("reveal-active");
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: "-20px 0px -20px 0px"
+        },);
+
+        const revealElements = document.querySelectorAll(".reveal-on-scroll");
+        revealElements.forEach((el) => observer.observe(el));
+
+        return() => {
+            revealElements.forEach((el) => observer.unobserve(el));
+        };
+    }, []);
+
+    const handleEnquirySubmit = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        router.push("/thank-you");
     };
-  }, []);
 
-  const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    router.push("/thank-you");
-  };
+    const handleBrochureSubmit = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsBrochureModalOpen(false);
+        window.open("https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf", "_blank",);
+        router.push("/thank-you");
+    };
 
-  const handleBrochureSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsBrochureModalOpen(false);
-    window.open("https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf", "_blank");
-    router.push("/thank-you");
-  };
-
-  return (
-    <div className="bg-background text-foreground">
-      {/* Header Section */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${isScrolled
-          ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
-          : "absolute bg-transparent py-6 text-paper"
-          }`}
-      >
-        <div className="container-editorial flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 leading-none z-50">
-            <Image
-              src={BRAND_LOGO}
-              alt="Krishna Group logo"
-              width={160}
-              height={48}
-              className={`h-12 w-auto transition-all duration-300 ${isScrolled ? "" : "brightness-0 invert"
-                }`}
-              priority
-            />
-            <div className="flex flex-col">
-              <span className="font-display text-2xl tracking-wide font-semibold">
-                UNNATTI
-              </span>
+    return(< div className = "bg-background text-foreground" > {
+        " "
+    } { /* Header Section */
+    } {
+        " "
+    } < header className = {
+        `fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+            isScrolled ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink" : "absolute bg-transparent py-6 text-paper"
+        }`
+    } > {
+        " "
+    } < div className = "container-editorial flex items-center justify-between" > {
+        " "
+    } < Link href = "/" className = "flex items-center gap-3 leading-none z-50" > {
+        " "
+    } < Image src = {
+        BRAND_LOGO
+    }
+    alt = "Krishna Group logo" width = {
+        160
+    }
+    height = {
+        48
+    }
+    className = {
+        `h-12 w-auto transition-all duration-300 ${
+            isScrolled ? "" : "brightness-0 invert"
+        }`
+    }
+    priority /> {
+        " "
+    } < div className = "flex flex-col" > {
+        " "
+    } < span className = "font-display text-2xl tracking-wide font-semibold" > {
+        " "
+    }
+    UNNATTI {
+        " "
+    } < /span>
               <span
-                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${isScrolled ? "text-muted-foreground" : "text-paper/70"
-                  }`}
+                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${
+                  isScrolled ? "text-muted-foreground" : "text-paper/70 "
+}`}
               >
                 Krishna Group · Est. 1983
               </span>
             </div>
           </Link>
-
           {/* Desktop Navigation */}
           <nav
-            className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${isScrolled ? "text-ink/80" : "text-paper/90"
-              }`}
+            className={` hidden md : flex items - center gap - 8 text - sm font - medium transition - colors duration - 300 $ {
+    isScrolled ? "text-ink/80" : "text-paper/90"
+}
+`}
           >
-            <Link href="#overview" className="nav-link-minimal hover:text-current transition-colors">
+            <Link
+              href="#overview"
+              className="nav-link-minimal hover:text-current transition-colors"
+            >
               Overview
             </Link>
-            <Link href="#gallery" className="nav-link-minimal hover:text-current transition-colors">
+            <Link
+              href="#gallery"
+              className="nav-link-minimal hover:text-current transition-colors"
+            >
               Gallery
             </Link>
-            <Link href="#plans" className="nav-link-minimal hover:text-current transition-colors">
+            <Link
+              href="#plans"
+              className="nav-link-minimal hover:text-current transition-colors"
+            >
               Floor Plans
             </Link>
-            <Link href="#specs" className="nav-link-minimal hover:text-current transition-colors">
+            <Link
+              href="#specs"
+              className="nav-link-minimal hover:text-current transition-colors"
+            >
               Specifications
             </Link>
-            <Link href="#location" className="nav-link-minimal hover:text-current transition-colors">
+            <Link
+              href="#location"
+              className="nav-link-minimal hover:text-current transition-colors"
+            >
               Location
             </Link>
           </nav>
-
           <Link
             href="#enquire"
-            className={`hidden md:inline-flex items-center gap-2 border text-xs uppercase tracking-[0.24em] px-5 py-2.5 transition-colors font-semibold ${isScrolled
-              ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
-              : "border-paper/40 text-paper hover:bg-paper hover:text-ink"
-              }`}
+            className={` hidden md : inline - flex items - center gap - 2 border text - xs uppercase tracking - [0.24e m] px - 5 py - 2.5 transition - colors font - semibold $ {
+    isScrolled ? "border-ink/40 text-ink hover:bg-ink hover:text-paper": "border-paper/40 text-paper hover:bg-paper hover:text-ink"
+}
+`}
           >
             Enquire
           </Link>
-
           {/* Mobile Menu Toggle button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -354,26 +409,41 @@ export default function Home() {
             aria-label="Toggle menu"
           >
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-                } ${isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""}`}
+              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
+    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+}
+$ {
+    isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""
+}
+`}
             />
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-                } ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
+    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+}
+$ {
+    isMobileMenuOpen ? "opacity-0" : ""
+}
+`}
             />
             <span
-              className={`w-6 h-0.5 transition-all duration-300 ${isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-                } ${isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""}`}
+              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
+    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+}
+$ {
+    isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""
+}
+`}
             />
           </button>
         </div>
-
         {/* Mobile Navigation Drawer */}
         <div
-          className={`fixed inset-0 bg-ink/95 backdrop-blur-lg z-40 md:hidden flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto translate-x-0"
-            : "opacity-0 pointer-events-none translate-x-full"
-            }`}
+          className={` fixed inset - 0 bg - ink / 95 backdrop - blur - lg z - 40 md
+: hidden flex flex - col items - center justify - center transition - all duration - 500 ease - in - out $ {
+    isMobileMenuOpen ? "opacity-100 pointer-events-auto translate-x-0": "opacity-0 pointer-events-none translate-x-full"
+}
+`}
         >
           <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
             <Link
@@ -421,7 +491,6 @@ export default function Home() {
           </nav>
         </div>
       </header>
-
       {/* Hero Section */}
       <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
         <Image
@@ -444,7 +513,8 @@ export default function Home() {
             <h1 className="mt-4 font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
               A rare urban
               <br />
-              <span className="text-gold font-light italic">retreat</span> for the
+              <span className="text-gold font-light italic">retreat</span> for
+              the
               <br />
               discerning few.
             </h1>
@@ -488,7 +558,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Address Overview Section */}
       <section id="overview" className="py-24 md:py-36 reveal-on-scroll">
         <div className="container-editorial grid md:grid-cols-12 gap-12 md:gap-20">
@@ -506,18 +575,18 @@ export default function Home() {
           <div className="md:col-span-7 space-y-6 text-muted-foreground leading-relaxed md:pt-4 font-sans font-light reveal-child reveal-delay-150">
             <p className="text-lg text-foreground font-normal">
               Tucked into one of Chennai's most storied neighbourhoods, Unnatti
-              is a quiet answer to the city's noise -homes shaped by
-              daylight, marble and considered detail.
+              is a quiet answer to the city's noise -homes shaped by daylight,
+              marble and considered detail.
             </p>
             <p>
-              Every residence is designed for smart, sustainable living: solar-lit
-              common areas, full power back-up, EV charging, rainwater
+              Every residence is designed for smart, sustainable living:
+              solar-lit common areas, full power back-up, EV charging, rainwater
               harvesting, CCTV, video door phones and intercom access.
             </p>
             <p>
-              A serene terrace garden crowns Unnatti, offering a private
-              escape with skyline views -the kind of quiet luxury that Alwarpet
-              was made for.
+              A serene terrace garden crowns Unnatti, offering a private escape
+              with skyline views -the kind of quiet luxury that Alwarpet was
+              made for.
             </p>
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border mt-10">
               <StatItem label="Foundation" value="Pile" />
@@ -527,9 +596,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Gallery Section */}
-      <section id="gallery" className="bg-cream py-24 md:py-32 reveal-on-scroll">
+      <section
+        id="gallery"
+        className="bg-cream py-24 md:py-32 reveal-on-scroll"
+      >
         <div className="container-editorial">
           <div className="flex items-end justify-between flex-wrap gap-6 mb-14 reveal-child">
             <div>
@@ -585,7 +656,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Floor Plans Section */}
       <section id="plans" className="py-24 md:py-32 reveal-on-scroll">
         <div className="container-editorial">
@@ -603,17 +673,20 @@ export default function Home() {
               <button
                 key={label}
                 onClick={() => setActiveFloorPlanIndex(idx)}
-                className={`px-5 py-2.5 text-xs uppercase tracking-[0.24em] border transition-colors font-semibold ${activeFloorPlanIndex === idx
-                  ? "bg-ink text-paper border-ink"
-                  : "border-border text-muted-foreground hover:border-ink hover:text-ink"
-                  }`}
+                className={` px - 5 py - 2.5 text - xs uppercase tracking - [0.24e m] border transition - colors font - semibold $ {
+    activeFloorPlanIndex === idx ? "bg-ink text-paper border-ink": "border-border text-muted-foreground hover:border-ink hover:text-ink"
+}
+`}
               >
                 {label}
               </button>
             ))}
           </div>
           <div className="aspect-[16/9] bg-cream border border-border flex items-center justify-center relative overflow-hidden p-6 reveal-child reveal-delay-200">
-            <div key={activeFloorPlanIndex} className="animate-fade-in w-full h-full flex items-center justify-center">
+            <div
+              key={activeFloorPlanIndex}
+              className="animate-fade-in w-full h-full flex items-center justify-center"
+            >
               <FloorPlanImage variant={activeFloorPlanIndex} />
             </div>
             <div className="absolute bottom-6 left-6 text-xs uppercase tracking-[0.24em] text-muted-foreground bg-paper/80 backdrop-blur px-3 py-1.5 font-semibold">
@@ -622,9 +695,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Specifications Section */}
-      <section id="specs" className="bg-ink text-paper py-24 md:py-32 reveal-on-scroll">
+      <section
+        id="specs"
+        className="bg-ink text-paper py-24 md:py-32 reveal-on-scroll"
+      >
         <div className="container-editorial">
           <div className="grid md:grid-cols-12 gap-10 mb-16">
             <div className="md:col-span-5 reveal-child">
@@ -669,7 +744,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Community Perks Section */}
       <section className="py-24 md:py-32 reveal-on-scroll">
         <div className="container-editorial">
@@ -684,7 +758,9 @@ export default function Home() {
                   The comforts of a quiet building.
                 </h2>
                 <p className="mt-6 text-muted-foreground text-sm leading-relaxed font-sans font-light">
-                  Every detail is carefully planned to offer privacy, security, and modern convenience to the premium residences of Krishna Unnatti.
+                  Every detail is carefully planned to offer privacy, security,
+                  and modern convenience to the premium residences of Krishna
+                  Unnatti.
                 </p>
               </div>
             </div>
@@ -709,9 +785,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Location Highlights Section */}
-      <section id="location" className="bg-cream py-24 md:py-32 reveal-on-scroll">
+      <section
+        id="location"
+        className="bg-cream py-24 md:py-32 reveal-on-scroll"
+      >
         <div className="container-editorial grid md:grid-cols-12 gap-12">
           <div className="md:col-span-5 reveal-child">
             <p className="eyebrow">
@@ -753,7 +831,9 @@ export default function Home() {
                 >
                   <button
                     onClick={() =>
-                      setExpandedLocationCategory(isOpen ? null : category.group)
+                      setExpandedLocationCategory(
+                        isOpen ? null : category.group,
+                      )
                     }
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer focus:outline-none"
                   >
@@ -761,15 +841,19 @@ export default function Home() {
                       {category.group}
                     </span>
                     <span
-                      className={`text-gold transition-transform duration-300 text-xs ${isOpen ? "rotate-180" : ""
-                        }`}
+                      className={` text - gold transition - transform duration - 300 text - xs $ {
+    isOpen ? "rotate-180": ""
+}
+`}
                     >
                       ▼
                     </span>
                   </button>
                   <div
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-[500px] border-t border-border opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-                      }`}
+                    className={` transition - all duration - 300 ease - in - out overflow - hidden $ {
+    isOpen ? "max-h-[500px] border-t border-border opacity-100": "max-h-0 opacity-0 pointer-events-none"
+}
+`}
                   >
                     <div className="p-6 divide-y divide-border bg-cream/30">
                       {category.items.map(([place, dist]) => (
@@ -793,9 +877,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Enquiry Form Section */}
-      <section id="enquire" className="relative py-24 md:py-32 overflow-hidden reveal-on-scroll">
+      <section
+        id="enquire"
+        className="relative py-24 md:py-32 overflow-hidden reveal-on-scroll"
+      >
         <Image
           src={ENQUIRE_BG_IMAGE}
           alt=""
@@ -816,8 +902,8 @@ export default function Home() {
               by appointment.
             </h2>
             <p className="mt-6 text-paper/70 leading-relaxed max-w-md font-sans font-light">
-              7 homes. A single address. Reach us for the brochure, floor
-              plans and pricing -we'll respond within one working day.
+              7 homes. A single address. Reach us for the brochure, floor plans
+              and pricing -we'll respond within one working day.
             </p>
             <div className="mt-10 space-y-3 text-paper/80 text-sm font-sans">
               <div className="font-semibold">Krishna Group · Est. 1983</div>
@@ -863,7 +949,6 @@ export default function Home() {
           </form>
         </div>
       </section>
-
       {/* Footer Section */}
       <footer className="bg-ink text-paper/60 pt-16 pb-28 md:py-16 border-t border-paper/10">
         <div className="container-editorial">
@@ -887,28 +972,27 @@ export default function Home() {
             <div className="text-center sm:text-left">
               © {new Date().getFullYear()} Krishna Group. All rights reserved.
             </div>
-            
+
             <div className="flex items-center gap-2.5 text-[10px] uppercase tracking-[0.15em]">
               <span>Designed & Developed by</span>
-              <a 
-                href="https://ayatiworks.com" 
-                target="_blank" 
+              <a
+                href="https://ayatiworks.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="opacity-60 hover:opacity-100 transition-opacity duration-300 inline-flex items-center"
               >
-                <Image 
-                  src="/assets/ayatiworks-logo.svg" 
-                  alt="Ayatiworks" 
+                <Image
+                  src="/assets/ayatiworks-logo.svg"
+                  alt="Ayatiworks"
                   width={96}
                   height={21}
-                  className="h-4.5 w-auto brightness-0 invert" 
+                  className="h-4.5 w-auto brightness-0 invert"
                 />
               </a>
             </div>
           </div>
         </div>
       </footer>
-
       {/* Mobile Sticky Menu */}
       <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden grid grid-cols-3 bg-ink text-paper text-xs uppercase tracking-[0.2em] font-sans font-semibold">
         <a
@@ -930,29 +1014,39 @@ export default function Home() {
           WhatsApp
         </a>
       </div>
-
       {/* Brochure Modal */}
       {isBrochureModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-ink/80 backdrop-blur-md animate-fade-in cursor-pointer"
             onClick={() => setIsBrochureModalOpen(false)}
           />
-          
+
           {/* Modal Content */}
           <div className="relative bg-paper text-ink max-w-md w-full p-8 md:p-10 shadow-2xl border border-border/40 z-10 animate-fade-up">
             {/* Close Button */}
-            <button 
+            <button
               onClick={() => setIsBrochureModalOpen(false)}
               className="absolute top-4 right-4 text-muted-foreground hover:text-ink transition-colors p-1 cursor-pointer"
               aria-label="Close modal"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
               </svg>
             </button>
-            
+
             <div className="text-center mb-8">
               <p className="eyebrow" style={{ color: "var(--color-gold)" }}>
                 <span className="rule" />
@@ -962,10 +1056,11 @@ export default function Home() {
                 Unlock Krishna Unnatti Details
               </h3>
               <p className="mt-2 text-xs text-muted-foreground font-sans font-light">
-                Please provide your contact information to view the digital brochure instantly.
+                Please provide your contact information to view the digital
+                brochure instantly.
               </p>
             </div>
-            
+
             <form onSubmit={handleBrochureSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <InputField label="First Name" name="first" />
@@ -973,7 +1068,7 @@ export default function Home() {
               </div>
               <InputField label="Email" name="email" type="email" />
               <InputField label="Phone" name="phone" type="tel" />
-              
+
               <button
                 type="submit"
                 className="w-full bg-ink text-paper py-4 mt-6 text-xs uppercase tracking-[0.28em] hover:bg-brick transition-colors font-semibold cursor-pointer"
@@ -1011,7 +1106,10 @@ function GalleryImage({
   className?: string;
 }) {
   return (
-    <figure className={`relative overflow-hidden group ${className}`}>
+    <figure
+      className={` relative overflow - hidden group $ {
+    className}`}
+    >
       <Image
         src={src}
         alt={label}
