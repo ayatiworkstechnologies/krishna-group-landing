@@ -19,6 +19,15 @@ import {
   Utensils,
   Bath,
   Zap,
+  ShieldCheck,
+  Video,
+  Camera,
+  PhoneCall,
+  PlugZap,
+  Flame,
+  Sun,
+  Dumbbell,
+  Trees,
 } from "lucide-react";
 
 // Image Asset Definitions
@@ -159,6 +168,24 @@ const COMMUNITY_PERKS = [
   "Landscape Terrace",
 ];
 
+const COMMUNITY_PERK_ICONS = [
+  Grid3X3,
+  Zap,
+  Grid,
+  ShieldCheck,
+  Bath,
+  Video,
+  Maximize,
+  Camera,
+  PhoneCall,
+  ArrowUpDown,
+  PlugZap,
+  Flame,
+  Sun,
+  Dumbbell,
+  Trees,
+];
+
 const LOCATION_HIGHLIGHTS = [
   {
     group: "Education",
@@ -197,9 +224,9 @@ export default function Home() {
   const router = useRouter();
   const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [expandedLocationCategory, setExpandedLocationCategory] = useState<
-    string | null
-  >("Education");
+  const [expandedLocationCategory, setExpandedLocationCategory] = useState(
+    LOCATION_HIGHLIGHTS[0].group,
+  );
   const [isScrolled, setIsScrolled] = useState(false);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
@@ -310,37 +337,49 @@ export default function Home() {
 
   return (
     <div className="bg-background text-foreground">
-      {" "}
-      {/* Header Section */}{" "}
+      {/* Header Section */}
       <header
-        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+        className={`fixed left-0 right-0 top-0 z-30 transition-all duration-300 ${
           isScrolled
-            ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
-            : "absolute bg-transparent py-6 text-paper"
+            ? "bg-paper/95 py-4 text-ink shadow-sm backdrop-blur-md border-b border-border"
+            : "bg-ink/20 py-7 text-paper backdrop-blur-[2px]"
         }`}
       >
-        {" "}
-        <div className="container-editorial flex items-center justify-between">
-          {" "}
-          <Link href="/" className="flex items-center gap-3 leading-none z-50">
-            {" "}
+        <div className="container-editorial grid grid-cols-[1fr_auto_1fr] items-center">
+          <Link
+            href="/"
+            className="z-50 flex items-center gap-4 leading-none md:gap-5"
+            aria-label="Krishna Group Unnati home"
+          >
             <Image
               src={BRAND_LOGO}
               alt="Krishna Group logo"
-              width={160}
+              width={132}
               height={48}
-              className={`h-12 w-auto transition-all duration-300 ${
+              className={`h-14 w-auto transition-all duration-300 md:h-[62px] ${
                 isScrolled ? "" : "brightness-0 invert"
               }`}
               priority
             />
+            <span
+              className={`hidden h-10 w-px md:block ${
+                isScrolled ? "bg-ink/25" : "bg-paper/35"
+              }`}
+            />
+            <span className="hidden flex-col md:flex">
+              <span className="font-display text-[2rem] font-medium uppercase leading-none tracking-[0.04em]">
+                UNNATI
+              </span>
+              <span className="mt-3 text-[0.7rem] font-semibold uppercase leading-none tracking-[0.42em] opacity-70">
+                Krishna Group - Est. 1983
+              </span>
+            </span>
           </Link>
           {/* Desktop Navigation */}
           <nav
-            className={` hidden md : flex items - center gap - 8 text - sm font - medium transition - colors duration - 300 $ {
-    isScrolled ? "text-ink/80" : "text-paper/90"
-}
-`}
+            className={`hidden items-center gap-9 text-sm font-semibold transition-colors duration-300 md:flex ${
+              isScrolled ? "text-ink/80" : "text-paper/90"
+            }`}
           >
             <Link
               href="#overview"
@@ -373,15 +412,17 @@ export default function Home() {
               Location
             </Link>
           </nav>
-          <Link
-            href="#enquire"
-            className={` hidden md : inline - flex items - center gap - 2 border text - xs uppercase tracking - [0.24e m] px - 5 py - 2.5 transition - colors font - semibold $ {
-    isScrolled ? "border-ink/40 text-ink hover:bg-ink hover:text-paper": "border-paper/40 text-paper hover:bg-paper hover:text-ink"
-}
-`}
+          <button
+            type="button"
+            onClick={() => setIsBrochureModalOpen(true)}
+            className={`hidden justify-self-end border px-7 py-3.5 text-xs font-bold uppercase tracking-[0.36em] transition-colors md:inline-flex ${
+              isScrolled
+                ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
+                : "border-paper/70 text-paper hover:bg-paper hover:text-ink"
+            }`}
           >
-            Enquire
-          </Link>
+            ENQUIRE
+          </button>
           {/* Mobile Menu Toggle button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -389,41 +430,29 @@ export default function Home() {
             aria-label="Toggle menu"
           >
             <span
-              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
-    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-}
-$ {
-    isMobileMenuOpen ? "rotate-45 translate-y-2 bg-paper" : ""
-}
-`}
+              className={`h-0.5 w-6 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "translate-y-2 rotate-45 bg-paper" : ""}`}
             />
             <span
-              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
-    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-}
-$ {
-    isMobileMenuOpen ? "opacity-0" : ""
-}
-`}
+              className={`h-0.5 w-6 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={` w - 6 h - 0.5 transition - all duration - 300 $ {
-    isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-}
-$ {
-    isMobileMenuOpen ? "-rotate-45 -translate-y-2 bg-paper" : ""
-}
-`}
+              className={`h-0.5 w-6 transition-all duration-300 ${
+                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "-translate-y-2 -rotate-45 bg-paper" : ""}`}
             />
           </button>
         </div>
         {/* Mobile Navigation Drawer */}
         <div
-          className={` fixed inset - 0 bg - ink / 95 backdrop - blur - lg z - 40 md
-: hidden flex flex - col items - center justify - center transition - all duration - 500 ease - in - out $ {
-    isMobileMenuOpen ? "opacity-100 pointer-events-auto translate-x-0": "opacity-0 pointer-events-none translate-x-full"
-}
-`}
+          className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-ink/95 backdrop-blur-lg transition-all duration-500 ease-in-out md:hidden ${
+            isMobileMenuOpen
+              ? "translate-x-0 opacity-100 pointer-events-auto"
+              : "translate-x-full opacity-0 pointer-events-none"
+          }`}
         >
           <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
             <Link
@@ -461,30 +490,34 @@ $ {
             >
               Location
             </Link>
-            <Link
-              href="#enquire"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsBrochureModalOpen(true);
+              }}
               className="mt-4 border border-paper/40 text-paper text-xs uppercase tracking-[0.24em] px-8 py-3.5 hover:bg-paper hover:text-ink transition-colors font-semibold"
             >
               Enquire Now
-            </Link>
+            </button>
           </nav>
         </div>
       </header>
       {/* Hero Section */}
-      <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+      <section className="relative min-h-[520px] w-full overflow-hidden bg-ink md:aspect-[128/89] md:min-h-0">
         <Image
           src={HERO_IMAGE}
-          alt="Krishna Unnatti building exterior elevation"
+          alt="Krishna Unnati building exterior elevation"
           fill
           priority
-          className="object-cover object-top"
+          sizes="70vw"
+          className="object-cover object-center"
         />
         <div
           className="absolute inset-0"
           style={{ background: "var(--gradient-hero)" }}
         />
-        <div className="relative z-10 container-editorial h-full flex flex-col justify-end pb-16 md:pb-24">
+        <div className="relative z-10 container-editorial flex min-h-[520px] flex-col justify-end pb-16 md:absolute md:inset-0 md:min-h-0 md:pb-10">
           <div className="animate-fade-up max-w-2xl text-paper">
             <p className="eyebrow" style={{ color: "var(--color-gold)" }}>
               <span className="rule" />
@@ -499,17 +532,18 @@ $ {
               discerning few.
             </h1>
             <p className="mt-5 max-w-xl text-paper/85 text-sm md:text-base leading-relaxed font-sans font-light">
-              Krishna Unnatti is a boutique residence of just five premium 3 BHK
+              Krishna Unnati is a boutique residence of just five premium 3 BHK
               homes -each 2,082 sq.ft -designed for those who value privacy,
               comfort and a prime Chennai address.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="#enquire"
+              <button
+                type="button"
+                onClick={() => setIsBrochureModalOpen(true)}
                 className="inline-flex items-center gap-2 bg-paper text-ink px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-gold transition-colors font-semibold"
               >
                 Enquire Now
-              </Link>
+              </button>
               <button
                 onClick={() => setIsBrochureModalOpen(true)}
                 className="inline-flex items-center gap-2 border border-paper/50 text-paper px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-paper hover:text-ink transition-colors font-semibold cursor-pointer"
@@ -539,7 +573,7 @@ $ {
         </div>
       </section>
       {/* Address Overview Section */}
-      <section id="overview" className="py-24 md:py-36 reveal-on-scroll">
+      <section id="overview" className="py-16 md:py-24 reveal-on-scroll">
         <div className="container-editorial grid md:grid-cols-12 gap-12 md:gap-20">
           <div className="md:col-span-5 reveal-child">
             <p className="eyebrow">
@@ -554,9 +588,9 @@ $ {
           </div>
           <div className="md:col-span-7 space-y-6 text-muted-foreground leading-relaxed md:pt-4 font-sans font-light reveal-child reveal-delay-150">
             <p className="text-lg text-foreground font-normal">
-              Tucked into one of Chennai's most storied neighbourhoods, Unnatti
-              is a quiet answer to the city's noise -homes shaped by daylight,
-              marble and considered detail.
+              Tucked into one of Chennai&apos;s most storied neighbourhoods,
+              Unnati is a quiet answer to the city&apos;s noise -homes shaped by
+              daylight, marble and considered detail.
             </p>
             <p>
               Every residence is designed for smart, sustainable living:
@@ -564,11 +598,11 @@ $ {
               harvesting, CCTV, video door phones and intercom access.
             </p>
             <p>
-              A serene terrace garden crowns Unnatti, offering a private escape
+              A serene terrace garden crowns Unnati, offering a private escape
               with skyline views -the kind of quiet luxury that Alwarpet was
               made for.
             </p>
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border mt-10">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border mt-8">
               <StatItem label="Foundation" value="Pile" />
               <StatItem label="Structure" value="R.C.C" />
               <StatItem label="Clear Height" value="10′ 6″" />
@@ -579,10 +613,10 @@ $ {
       {/* Gallery Section */}
       <section
         id="gallery"
-        className="bg-cream py-24 md:py-32 reveal-on-scroll"
+        className="bg-cream py-16 md:py-20 reveal-on-scroll"
       >
         <div className="container-editorial">
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-14 reveal-child">
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-10 reveal-child">
             <div>
               <p className="eyebrow">
                 <span className="rule" />
@@ -636,10 +670,54 @@ $ {
           </div>
         </div>
       </section>
-      {/* Floor Plans Section */}
-      <section id="plans" className="py-24 md:py-32 reveal-on-scroll">
+      {/* Community Perks Section */}
+      <section className="py-16 md:py-20 reveal-on-scroll">
         <div className="container-editorial">
-          <div className="text-center max-w-2xl mx-auto mb-14 reveal-child">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
+            <div className="md:col-span-4 reveal-child">
+              <div className="md:sticky md:top-32">
+                <p className="eyebrow">
+                  <span className="rule" />
+                  Community Perks
+                </p>
+                <h2 className="mt-6 text-4xl md:text-5xl">
+                  The comforts of a quiet building.
+                </h2>
+                <p className="mt-6 text-muted-foreground text-sm leading-relaxed font-sans font-light">
+                  Every detail is carefully planned to offer privacy, security,
+                  and modern convenience to the premium residences of Krishna
+                  Unnati.
+                </p>
+              </div>
+            </div>
+
+            <div className="md:col-span-8 reveal-child reveal-delay-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12">
+                {COMMUNITY_PERKS.map((perk, idx) => {
+                  const PerkIcon = COMMUNITY_PERK_ICONS[idx];
+                  return (
+                    <div
+                      key={perk}
+                      className="flex items-start gap-4 group border-b border-border/40 pb-6 hover:border-gold/40 transition-colors duration-300"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-gold/30 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-ink">
+                        <PerkIcon className="h-5 w-5" />
+                      </span>
+                      <span className="text-sm md:text-base text-foreground/80 leading-relaxed font-sans font-light group-hover:text-ink transition-colors duration-300">
+                        {perk}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Floor Plans Section */}
+      <section id="plans" className="py-16 md:py-20 reveal-on-scroll">
+        <div className="container-editorial">
+          <div className="text-center max-w-2xl mx-auto mb-10 reveal-child">
             <p className="eyebrow">
               <span className="rule" />
               Curated Floor Plans
@@ -648,21 +726,22 @@ $ {
               Every square foot, considered.
             </h2>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 mb-12 reveal-child reveal-delay-100">
+          <div className="mx-auto mb-6 grid max-w-5xl grid-cols-1 gap-2 reveal-child reveal-delay-100 sm:grid-cols-2 lg:grid-cols-5 md:mb-8">
             {FLOOR_PLAN_LABELS.map((label, idx) => (
               <button
                 key={label}
                 onClick={() => setActiveFloorPlanIndex(idx)}
-                className={` px - 5 py - 2.5 text - xs uppercase tracking - [0.24e m] border transition - colors font - semibold $ {
-    activeFloorPlanIndex === idx ? "bg-ink text-paper border-ink": "border-border text-muted-foreground hover:border-ink hover:text-ink"
-}
-`}
+                className={`min-h-11 border px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.24em] transition-colors ${
+                  activeFloorPlanIndex === idx
+                    ? "border-ink bg-ink text-paper"
+                    : "border-border text-ink/70 hover:border-ink hover:text-ink"
+                }`}
               >
                 {label}
               </button>
             ))}
           </div>
-          <div className="aspect-[16/9] bg-cream border border-border flex items-center justify-center relative overflow-hidden p-6 reveal-child reveal-delay-200">
+          <div className="relative overflow-hidden border border-border bg-cream p-4 reveal-child reveal-delay-200 md:p-6">
             <div
               key={activeFloorPlanIndex}
               className="animate-fade-in w-full h-full flex items-center justify-center"
@@ -678,10 +757,10 @@ $ {
       {/* Specifications Section */}
       <section
         id="specs"
-        className="bg-ink text-paper py-24 md:py-32 reveal-on-scroll"
+        className="bg-ink text-paper py-16 md:py-20 reveal-on-scroll"
       >
         <div className="container-editorial">
-          <div className="grid md:grid-cols-12 gap-10 mb-16">
+          <div className="grid md:grid-cols-12 gap-10 mb-10">
             <div className="md:col-span-5 reveal-child">
               <p className="eyebrow">
                 <span className="rule" />
@@ -724,51 +803,10 @@ $ {
           </div>
         </div>
       </section>
-      {/* Community Perks Section */}
-      <section className="py-24 md:py-32 reveal-on-scroll">
-        <div className="container-editorial">
-          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
-            <div className="md:col-span-4 reveal-child">
-              <div className="md:sticky md:top-32">
-                <p className="eyebrow">
-                  <span className="rule" />
-                  Community Perks
-                </p>
-                <h2 className="mt-6 text-4xl md:text-5xl">
-                  The comforts of a quiet building.
-                </h2>
-                <p className="mt-6 text-muted-foreground text-sm leading-relaxed font-sans font-light">
-                  Every detail is carefully planned to offer privacy, security,
-                  and modern convenience to the premium residences of Krishna
-                  Unnatti.
-                </p>
-              </div>
-            </div>
-
-            <div className="md:col-span-8 reveal-child reveal-delay-200">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12">
-                {COMMUNITY_PERKS.map((perk, idx) => (
-                  <div
-                    key={perk}
-                    className="flex items-start gap-4 group border-b border-border/40 pb-6 hover:border-gold/40 transition-colors duration-300"
-                  >
-                    <span className="font-display text-gold text-2xl leading-none font-light">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-sm md:text-base text-foreground/80 leading-relaxed font-sans font-light group-hover:text-ink transition-colors duration-300">
-                      {perk}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Location Highlights Section */}
       <section
         id="location"
-        className="bg-cream py-24 md:py-32 reveal-on-scroll"
+        className="bg-cream py-16 md:py-20 reveal-on-scroll"
       >
         <div className="container-editorial grid md:grid-cols-12 gap-12">
           <div className="md:col-span-5 reveal-child">
@@ -807,35 +845,36 @@ $ {
               return (
                 <div
                   key={category.group}
-                  className="border border-border bg-background transition-all duration-300"
+                  className={`border transition-all duration-300 ${
+                    isOpen
+                      ? "border-gold/50 bg-background shadow-sm"
+                      : "border-border bg-background/70"
+                  }`}
                 >
                   <button
-                    onClick={() =>
-                      setExpandedLocationCategory(
-                        isOpen ? null : category.group,
-                      )
-                    }
-                    className="w-full flex items-center justify-between p-6 text-left cursor-pointer focus:outline-none"
+                    onClick={() => setExpandedLocationCategory(category.group)}
+                    className="flex w-full cursor-pointer items-center justify-between p-6 text-left focus:outline-none"
+                    aria-expanded={isOpen}
                   >
                     <span className="font-display text-2xl text-foreground">
                       {category.group}
                     </span>
                     <span
-                      className={` text - gold transition - transform duration - 300 text - xs $ {
-    isOpen ? "rotate-180": ""
-}
-`}
+                      className={`text-xs text-gold transition-transform duration-300 ${
+                        isOpen ? "rotate-180 opacity-100" : "opacity-70"
+                      }`}
                     >
                       ▼
                     </span>
                   </button>
                   <div
-                    className={` transition - all duration - 300 ease - in - out overflow - hidden $ {
-    isOpen ? "max-h-[500px] border-t border-border opacity-100": "max-h-0 opacity-0 pointer-events-none"
-}
-`}
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen
+                        ? "max-h-[500px] border-t border-border opacity-100"
+                        : "max-h-0 opacity-0 pointer-events-none"
+                    }`}
                   >
-                    <div className="p-6 divide-y divide-border bg-cream/30">
+                    <div className="divide-y divide-border bg-paper p-6">
                       {category.items.map(([place, dist]) => (
                         <div
                           key={place}
@@ -860,7 +899,7 @@ $ {
       {/* Enquiry Form Section */}
       <section
         id="enquire"
-        className="relative py-24 md:py-32 overflow-hidden reveal-on-scroll"
+        className="relative py-16 md:py-20 overflow-hidden reveal-on-scroll"
       >
         <Image
           src={ENQUIRE_BG_IMAGE}
@@ -883,7 +922,7 @@ $ {
             </h2>
             <p className="mt-6 text-paper/70 leading-relaxed max-w-md font-sans font-light">
               7 homes. A single address. Reach us for the brochure, floor plans
-              and pricing -we'll respond within one working day.
+              and pricing -we&apos;ll respond within one working day.
             </p>
             <div className="mt-10 space-y-3 text-paper/80 text-sm font-sans">
               <div className="font-semibold">Krishna Group · Est. 1983</div>
@@ -903,13 +942,10 @@ $ {
             onSubmit={handleEnquirySubmit}
             className="md:col-span-6 md:col-start-7 bg-paper text-ink p-8 md:p-12 space-y-5 reveal-child reveal-delay-200"
           >
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label="First Name" name="first" />
-              <InputField label="Last Name" name="last" />
-            </div>
+            <InputField label="Name" name="name" />
+            <InputField label="Phone Number" name="phone" type="tel" />
             <InputField label="Email" name="email" type="email" />
-            <InputField label="Phone" name="phone" type="tel" />
-            <div>
+            <div className="hidden">
               <label className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-sans font-semibold">
                 Message
               </label>
@@ -924,19 +960,31 @@ $ {
               type="submit"
               className="w-full bg-ink text-paper py-4 text-xs uppercase tracking-[0.28em] hover:bg-brick transition-colors font-semibold"
             >
-              Request Brochure
+              Submit Enquiry
             </button>
           </form>
         </div>
       </section>
       {/* Footer Section */}
-      <footer className="bg-ink text-paper/60 pt-16 pb-28 md:py-16 border-t border-paper/10">
-        <div className="container-editorial">
-          {/* Top Row */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-10 border-b border-paper/10">
+      <footer className="w-full border-t border-paper/10 bg-ink py-8 pb-24 text-paper/60 md:pb-8">
+        <div className="container-editorial grid items-center gap-6 text-center font-sans text-xs md:grid-cols-3">
+          <Link
+            href="/"
+            className="inline-flex justify-center md:justify-start"
+            aria-label="Krishna Group home"
+          >
+            <Image
+              src={BRAND_LOGO}
+              alt="Krishna Group logo"
+              width={132}
+              height={48}
+              className="h-12 w-auto brightness-0 invert"
+            />
+          </Link>
+          <div className="hidden">
             <div>
               <div className="font-display text-paper text-2xl tracking-wide font-normal">
-                Krishna Unnatti
+                Krishna Unnati
               </div>
               <p className="text-[10px] text-paper/40 mt-1 uppercase tracking-[0.2em] font-sans">
                 Premium Residences · Alwarpet, Chennai
@@ -947,13 +995,15 @@ $ {
             </div>
           </div>
 
-          {/* Bottom Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 text-xs font-sans text-paper/50">
-            <div className="text-center sm:text-left">
+          <div className="contents">
+            <div className="text-center text-paper/55">
+              &copy; 2026 Krishna Group. All rights reserved.
+            </div>
+            <div className="hidden">
               © {new Date().getFullYear()} Krishna Group. All rights reserved.
             </div>
 
-            <div className="flex items-center gap-2.5 text-[10px] uppercase tracking-[0.15em]">
+            <div className="flex items-center justify-center gap-2.5 text-[10px] uppercase tracking-[0.15em] md:justify-end">
               <span>Designed & Developed by</span>
               <a
                 href="https://ayatiworks.com"
@@ -981,12 +1031,13 @@ $ {
         >
           Call
         </a>
-        <Link
-          href="#enquire"
+        <button
+          type="button"
+          onClick={() => setIsBrochureModalOpen(true)}
           className="py-4 text-center border-r border-paper/10 bg-brick hover:bg-brick/90 text-white transition-colors"
         >
           Enquire
-        </Link>
+        </button>
         <a
           href="https://wa.me/917824001904"
           className="py-4 text-center hover:text-gold transition-colors"
@@ -1033,7 +1084,7 @@ $ {
                 Brochure Download
               </p>
               <h3 className="mt-4 font-display text-3xl">
-                Unlock Krishna Unnatti Details
+                Unlock Krishna Unnati Details
               </h3>
               <p className="mt-2 text-xs text-muted-foreground font-sans font-light">
                 Please provide your contact information to view the digital
@@ -1042,12 +1093,9 @@ $ {
             </div>
 
             <form onSubmit={handleBrochureSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <InputField label="First Name" name="first" />
-                <InputField label="Last Name" name="last" />
-              </div>
+              <InputField label="Name" name="name" />
+              <InputField label="Phone Number" name="phone" type="tel" />
               <InputField label="Email" name="email" type="email" />
-              <InputField label="Phone" name="phone" type="tel" />
 
               <button
                 type="submit"
@@ -1086,10 +1134,7 @@ function GalleryImage({
   className?: string;
 }) {
   return (
-    <figure
-      className={` relative overflow - hidden group $ {
-    className}`}
-    >
+    <figure className={`group relative overflow-hidden ${className}`}>
       <Image
         src={src}
         alt={label}
@@ -1130,13 +1175,13 @@ function InputField({
 
 function FloorPlanImage({ variant }: { variant: number }) {
   return (
-    <div className="w-full h-[300px] md:h-[450px] flex items-center justify-center bg-white p-2 md:p-6 rounded border border-border relative">
+    <div className="relative flex h-[300px] w-full items-start justify-center rounded border border-border bg-white p-2 md:h-[560px] md:p-4 lg:h-[620px]">
       <Image
         src={FLOOR_PLAN_IMAGES[variant]}
         alt={FLOOR_PLAN_LABELS[variant]}
         fill
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-contain p-2 md:p-6 transition-opacity duration-300"
+        sizes="(max-width: 768px) 100vw, 90vw"
+        className="object-contain object-top p-2 transition-opacity duration-300 md:p-4"
       />
     </div>
   );
