@@ -663,35 +663,39 @@ export default function Home() {
       {/* Community Perks Section */}
       <section className="py-24 md:py-32 reveal-on-scroll">
         <div className="container-editorial">
-          <div className="text-center mb-16 max-w-2xl mx-auto reveal-child">
-            <p className="eyebrow">
-              <span className="rule" />
-              Community Perks
-            </p>
-            <h2 className="mt-6 text-4xl md:text-5xl">
-              The comforts of a quiet building.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-child reveal-delay-200">
-            {COMMUNITY_PERKS.map((perk, idx) => (
-              <div
-                key={perk}
-                className="relative overflow-hidden group bg-paper border border-border/50 p-8 hover:-translate-y-1 hover:border-gold/50 transition-all duration-500 ease-out hover:shadow-xl hover:shadow-gold/[0.02] flex flex-col min-h-[160px] justify-between"
-              >
-                <div className="absolute right-4 bottom-2 font-display text-8xl text-ink/[0.03] group-hover:text-gold/[0.08] transition-colors duration-500 font-semibold select-none pointer-events-none">
-                  {String(idx + 1).padStart(2, "0")}
-                </div>
-                <div className="relative z-10">
-                  <div className="font-display text-xs text-gold uppercase tracking-[0.2em] mb-4 bg-cream/40 border border-gold/15 px-3 py-1 rounded-full w-fit">
-                    Perk {String(idx + 1).padStart(2, "0")}
-                  </div>
-                  <p className="text-sm md:text-base text-foreground/90 leading-relaxed font-sans font-light">
-                    {perk}
-                  </p>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+          <div className="grid md:grid-cols-12 gap-12 md:gap-20">
+            <div className="md:col-span-4 reveal-child">
+              <div className="md:sticky md:top-32">
+                <p className="eyebrow">
+                  <span className="rule" />
+                  Community Perks
+                </p>
+                <h2 className="mt-6 text-4xl md:text-5xl">
+                  The comforts of a quiet building.
+                </h2>
+                <p className="mt-6 text-muted-foreground text-sm leading-relaxed font-sans font-light">
+                  Every detail is carefully planned to offer privacy, security, and modern convenience to the premium residences of Krishna Unnatti.
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div className="md:col-span-8 reveal-child reveal-delay-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12">
+                {COMMUNITY_PERKS.map((perk, idx) => (
+                  <div
+                    key={perk}
+                    className="flex items-start gap-4 group border-b border-border/40 pb-6 hover:border-gold/40 transition-colors duration-300"
+                  >
+                    <span className="font-display text-gold text-2xl leading-none font-light">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-sm md:text-base text-foreground/80 leading-relaxed font-sans font-light group-hover:text-ink transition-colors duration-300">
+                      {perk}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
