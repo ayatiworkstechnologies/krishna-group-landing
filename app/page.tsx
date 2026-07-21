@@ -531,7 +531,7 @@ export default function Home() {
         />
 
         {/* Dark Overlay */}
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10" /> */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-black/10" />
 
         {/* Golden Bottom Fade */}
         <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
