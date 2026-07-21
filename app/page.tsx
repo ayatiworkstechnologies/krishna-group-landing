@@ -1,24 +1,24 @@
 "use client";
 
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Lenis from "lenis";
 import {
-    Layers,
-    Building,
-    ArrowUpDown,
-    Grid,
-    Grid3X3,
-    Brush,
-    Palette,
-    DoorOpen,
-    Maximize,
-    Wind,
-    Utensils,
-    Bath,
-    Zap
+  Layers,
+  Building,
+  ArrowUpDown,
+  Grid,
+  Grid3X3,
+  Brush,
+  Palette,
+  DoorOpen,
+  Maximize,
+  Wind,
+  Utensils,
+  Bath,
+  Zap,
 } from "lucide-react";
 
 // Image Asset Definitions
@@ -27,333 +27,313 @@ const ENQUIRE_BG_IMAGE = "/assets/terrace-garden.webp";
 const BRAND_LOGO = "/assets/krishna-group-logo.svg";
 
 const GALLERY_IMAGES = [
-    {
-        src: "/assets/living-area.jpg",
-        label: "Living Area"
-    },
-    {
-        src: "/assets/bedroom.webp",
-        label: "Bed Room"
-    },
-    {
-        src: "/assets/kitchen.webp",
-        label: "Kitchen"
-    },
-    {
-        src: "/assets/lobby-1.webp",
-        label: "Lobby"
-    }, {
-        src: "/assets/bathroom.webp",
-        label: "Bath Room"
-    }, {
-        src: "/assets/balcony.webp",
-        label: "Balcony"
-    }, {
-        src: "/assets/terrace-garden.webp",
-        label: "Terrace Garden"
-    },
+  {
+    src: "/assets/living-area.jpg",
+    label: "Living Area",
+  },
+  {
+    src: "/assets/bedroom.webp",
+    label: "Bed Room",
+  },
+  {
+    src: "/assets/kitchen.webp",
+    label: "Kitchen",
+  },
+  {
+    src: "/assets/lobby-1.webp",
+    label: "Lobby",
+  },
+  {
+    src: "/assets/bathroom.webp",
+    label: "Bath Room",
+  },
+  {
+    src: "/assets/balcony.webp",
+    label: "Balcony",
+  },
+  {
+    src: "/assets/terrace-garden.webp",
+    label: "Terrace Garden",
+  },
 ];
 
 const FLOOR_PLAN_LABELS = [
-    "Stilt Plan",
-    "Typical Floor Plan",
-    "Typical Plan Unit A",
-    "Typical Plan Unit B",
-    "Terrace Plan",
+  "Stilt Plan",
+  "Typical Floor Plan",
+  "Typical Plan Unit A",
+  "Typical Plan Unit B",
+  "Terrace Plan",
 ];
 
 const FLOOR_PLAN_IMAGES = [
-    "/assets/stilt-plan.webp",
-    "/assets/typical-floor-plan.webp",
-    "/assets/unit-a-plan.png",
-    "/assets/unit-b-plan.png",
-    "/assets/terrace-plan.webp",
+  "/assets/stilt-plan.webp",
+  "/assets/typical-floor-plan.webp",
+  "/assets/unit-a-plan.png",
+  "/assets/unit-b-plan.png",
+  "/assets/terrace-plan.webp",
 ];
 
 const KEY_HIGHLIGHTS = [
-    {
-        title: "Foundation",
-        body: "Pile foundation shall be as per structural drawing.",
-        icon: Layers
-    },
-    {
-        title: "Structure",
-        body: "R.C.C Framed Structure.",
-        icon: Building
-    },
-    {
-        title: "Ceiling Height",
-        body: "False Ceiling with light fixtures. 10′ 6″ Floor to ceiling Clear height (without false ceiling).",
-        icon: ArrowUpDown
-    },
-    {
-        title: "Walls",
-        body: "External Walls in Cement Blocks. Partition Walls in Cement Blocks.",
-        icon: Grid
-    }, {
-        title: "Flooring",
-        body: "Marble Flooring in Living & Dining. 4 X 4 Vitrified Tiles for Flooring in all Bedrooms & Kitchen. Anti-Skid tiles in Restrooms & Balcony.",
-        icon: Grid3X3
-    }, {
-        title: "Plastering",
-        body: "Internal walls are plastered in gypsum. External walls are plastered in cement mortar.",
-        icon: Brush
-    }, {
-        title: "Painting",
-        body: "Interiors: Emulsion premium paint with two coat asian / berger / dulux putty. Exteriors: Texture with asian / berger / dulux putty paint.",
-        icon: Palette
-    }, {
-        title: "Doors",
-        body: "Engineered wooden door frame and shutter with teak wood veneer finish for main door. Engineered wood veneer / ABS frame & shutter for bedrooms and restrooms.",
-        icon: DoorOpen
-    }, {
-        title: "Windows",
-        body: "UPVC with Sliding / openable glass shutters and MS grill as per the architect’s design.",
-        icon: Maximize
-    }, {
-        title: "Balcony",
-        body: "Glass fitted UPVC french doors.",
-        icon: Wind
-    }, {
-        title: "Kitchen & Utility Area",
-        body: "2′ Wall dado vitrified tiles above the kitchen platform. Provision for water purifying system in kitchen. Provision for washing machine, sink and tap in utility.",
-        icon: Utensils
-    }, {
-        title: "Restrooms",
-        body: "Vitrified wall tiles up to false ceiling height. Kohler / Toto / Roca or equivalent wall mounted closets, wash basins, diverters & CP fittings. Shower partition in master restroom.",
-        icon: Bath
-    }, {
-        title: "Electrical",
-        body: "100% Power Backup. VRV A/C in Living, Dining and all Bedrooms. Three Phase Power Supply with fully concealed wiring & modular switches. Provision for geyser, exhaust fan & chimney.",
-        icon: Zap
-    },
+  {
+    title: "Foundation",
+    body: "Pile foundation shall be as per structural drawing.",
+    icon: Layers,
+  },
+  {
+    title: "Structure",
+    body: "R.C.C Framed Structure.",
+    icon: Building,
+  },
+  {
+    title: "Ceiling Height",
+    body: "False Ceiling with light fixtures. 10′ 6″ Floor to ceiling Clear height (without false ceiling).",
+    icon: ArrowUpDown,
+  },
+  {
+    title: "Walls",
+    body: "External Walls in Cement Blocks. Partition Walls in Cement Blocks.",
+    icon: Grid,
+  },
+  {
+    title: "Flooring",
+    body: "Marble Flooring in Living & Dining. 4 X 4 Vitrified Tiles for Flooring in all Bedrooms & Kitchen. Anti-Skid tiles in Restrooms & Balcony.",
+    icon: Grid3X3,
+  },
+  {
+    title: "Plastering",
+    body: "Internal walls are plastered in gypsum. External walls are plastered in cement mortar.",
+    icon: Brush,
+  },
+  {
+    title: "Painting",
+    body: "Interiors: Emulsion premium paint with two coat asian / berger / dulux putty. Exteriors: Texture with asian / berger / dulux putty paint.",
+    icon: Palette,
+  },
+  {
+    title: "Doors",
+    body: "Engineered wooden door frame and shutter with teak wood veneer finish for main door. Engineered wood veneer / ABS frame & shutter for bedrooms and restrooms.",
+    icon: DoorOpen,
+  },
+  {
+    title: "Windows",
+    body: "UPVC with Sliding / openable glass shutters and MS grill as per the architect’s design.",
+    icon: Maximize,
+  },
+  {
+    title: "Balcony",
+    body: "Glass fitted UPVC french doors.",
+    icon: Wind,
+  },
+  {
+    title: "Kitchen & Utility Area",
+    body: "2′ Wall dado vitrified tiles above the kitchen platform. Provision for water purifying system in kitchen. Provision for washing machine, sink and tap in utility.",
+    icon: Utensils,
+  },
+  {
+    title: "Restrooms",
+    body: "Vitrified wall tiles up to false ceiling height. Kohler / Toto / Roca or equivalent wall mounted closets, wash basins, diverters & CP fittings. Shower partition in master restroom.",
+    icon: Bath,
+  },
+  {
+    title: "Electrical",
+    body: "100% Power Backup. VRV A/C in Living, Dining and all Bedrooms. Three Phase Power Supply with fully concealed wiring & modular switches. Provision for geyser, exhaust fan & chimney.",
+    icon: Zap,
+  },
 ];
 
 const COMMUNITY_PERKS = [
-    "Common Area Flooring – Granite / Designer Tiles / Kota Stone",
-    "100% Power Back up",
-    "Paver Blocks for driveways",
-    "Anti-Termite Treatment",
-    "Common Toilet for Drivers / Maids",
-    "Video Door Phone, Security System with Access Cards",
-    "Provision for DTH",
-    "CCTV Camera to Monitor",
-    "Intercom Connection to the security",
-    "1 - Passenger Lift",
-    "EV Charging Provisions",
-    "Reticulated Gas Supply",
-    "Solar lighting for common areas.",
-    "Yoga Deck",
-    "Landscape Terrace",
+  "Common Area Flooring – Granite / Designer Tiles / Kota Stone",
+  "100% Power Back up",
+  "Paver Blocks for driveways",
+  "Anti-Termite Treatment",
+  "Common Toilet for Drivers / Maids",
+  "Video Door Phone, Security System with Access Cards",
+  "Provision for DTH",
+  "CCTV Camera to Monitor",
+  "Intercom Connection to the security",
+  "1 - Passenger Lift",
+  "EV Charging Provisions",
+  "Reticulated Gas Supply",
+  "Solar lighting for common areas.",
+  "Yoga Deck",
+  "Landscape Terrace",
 ];
 
 const LOCATION_HIGHLIGHTS = [
-    {
-        group: "Education",
-        items: [
-            [
-                "MCTM Chidambaram International", "650 m"
-            ],
-            [
-                "Justice Basher Ahmed College", "1.0 km"
-            ],
-            [
-                "Time Kids School", "1.3 km"
-            ],
-            [
-                "Stella Maris College", "2.1 km"
-            ],
-        ]
-    }, {
-        group: "Healthcare",
-        items: [
-            [
-                "Kauvery Hospital", "450 m"
-            ],
-            [
-                "Apollo Dental", "1.2 km"
-            ],
-        ]
-    }, {
-        group: "Transport",
-        items: [
-            [
-                "Teynampet Metro", "1.4 km"
-            ],
-            [
-                "AGDMS Metro", "1.4 km"
-            ],
-        ]
-    }, {
-        group: "Leisure",
-        items: [
-            [
-                "Sai Baba Temple", "1.9 km"
-            ],
-            [
-                "Semmozhi Poonga", "2.4 km"
-            ],
-            [
-                "AGS Cinemas", "3.2 km"
-            ],
-        ]
-    },
+  {
+    group: "Education",
+    items: [
+      ["MCTM Chidambaram International", "650 m"],
+      ["Justice Basher Ahmed College", "1.0 km"],
+      ["Time Kids School", "1.3 km"],
+      ["Stella Maris College", "2.1 km"],
+    ],
+  },
+  {
+    group: "Healthcare",
+    items: [
+      ["Kauvery Hospital", "450 m"],
+      ["Apollo Dental", "1.2 km"],
+    ],
+  },
+  {
+    group: "Transport",
+    items: [
+      ["Teynampet Metro", "1.4 km"],
+      ["AGDMS Metro", "1.4 km"],
+    ],
+  },
+  {
+    group: "Leisure",
+    items: [
+      ["Sai Baba Temple", "1.9 km"],
+      ["Semmozhi Poonga", "2.4 km"],
+      ["AGS Cinemas", "3.2 km"],
+    ],
+  },
 ];
 
 export default function Home() {
-    const router = useRouter();
-    const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [expandedLocationCategory, setExpandedLocationCategory] = useState < string | null > ("Education");
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
+  const router = useRouter();
+  const [activeFloorPlanIndex, setActiveFloorPlanIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedLocationCategory, setExpandedLocationCategory] = useState<
+    string | null
+  >("Education");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
-    // Scroll event listener for sticky header transition
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll, {passive: true});
-        return() => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  // Scroll event listener for sticky header transition
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    // Initialize Lenis smooth scrolling with bidirectional anchor navigation
-    useEffect(() => {
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-        });
+  // Initialize Lenis smooth scrolling with bidirectional anchor navigation
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
 
-        function raf(time: number) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-        requestAnimationFrame(raf);
+    requestAnimationFrame(raf);
 
-        const handleAnchorClick = (e : MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const anchor = target.closest("a");
-            if (anchor && anchor.getAttribute("href") ?. startsWith("#")) {
-                const targetId = anchor.getAttribute("href");
-                if (targetId) {
-                    if (targetId === "#") {
-                        e.preventDefault();
-                        lenis.scrollTo(0);
-                    } else {
-                        const targetEl = document.querySelector(targetId)as HTMLElement;
-                        if (targetEl) {
-                            e.preventDefault();
-                            lenis.scrollTo(targetEl);
-                            setIsMobileMenuOpen(false);
-                        }
-                    }
-                }
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a");
+      if (anchor && anchor.getAttribute("href")?.startsWith("#")) {
+        const targetId = anchor.getAttribute("href");
+        if (targetId) {
+          if (targetId === "#") {
+            e.preventDefault();
+            lenis.scrollTo(0);
+          } else {
+            const targetEl = document.querySelector(targetId) as HTMLElement;
+            if (targetEl) {
+              e.preventDefault();
+              lenis.scrollTo(targetEl);
+              setIsMobileMenuOpen(false);
             }
-        };
-
-        document.addEventListener("click", handleAnchorClick);
-
-        return() => {
-            lenis.destroy();
-            document.removeEventListener("click", handleAnchorClick);
-        };
-    }, []);
-
-    // Prevent scroll when mobile menu is open
-    useEffect(() => {
-        if (isMobileMenuOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
+          }
         }
-        return() => {
-            document.body.style.overflow = "unset";
-        };
-    }, [isMobileMenuOpen]);
-
-    // Intersection Observer for bidirectional reveal scroll animations
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("reveal-active");
-                } else {
-                    entry.target.classList.remove("reveal-active");
-                }
-            });
-        }, {
-            threshold: 0.05,
-            rootMargin: "-20px 0px -20px 0px"
-        },);
-
-        const revealElements = document.querySelectorAll(".reveal-on-scroll");
-        revealElements.forEach((el) => observer.observe(el));
-
-        return() => {
-            revealElements.forEach((el) => observer.unobserve(el));
-        };
-    }, []);
-
-    const handleEnquirySubmit = (e : React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        router.push("/thank-you");
+      }
     };
 
-    const handleBrochureSubmit = (e : React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsBrochureModalOpen(false);
-        window.open("https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf", "_blank",);
-        router.push("/thank-you");
-    };
+    document.addEventListener("click", handleAnchorClick);
 
-    return(< div className = "bg-background text-foreground" > {
-        " "
-    } { /* Header Section */
-    } {
-        " "
-    } < header className = {
-        `fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
-            isScrolled ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink" : "absolute bg-transparent py-6 text-paper"
-        }`
-    } > {
-        " "
-    } < div className = "container-editorial flex items-center justify-between" > {
-        " "
-    } < Link href = "/" className = "flex items-center gap-3 leading-none z-50" > {
-        " "
-    } < Image src = {
-        BRAND_LOGO
+    return () => {
+      lenis.destroy();
+      document.removeEventListener("click", handleAnchorClick);
+    };
+  }, []);
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
-    alt = "Krishna Group logo" width = {
-        160
-    }
-    height = {
-        48
-    }
-    className = {
-        `h-12 w-auto transition-all duration-300 ${
-            isScrolled ? "" : "brightness-0 invert"
-        }`
-    }
-    priority /> {
-        " "
-    } < div className = "flex flex-col" > {
-        " "
-    } < span className = "font-display text-2xl tracking-wide font-semibold" > {
-        " "
-    }
-    UNNATTI {
-        " "
-    } < /span>
-              <span
-                className={`text-[9px] uppercase tracking-[0.3em] mt-1 font-sans transition-colors duration-300 ${
-                  isScrolled ? "text-muted-foreground" : "text-paper/70 "
-}`}
-              >
-                Krishna Group · Est. 1983
-              </span>
-            </div>
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
+  // Intersection Observer for bidirectional reveal scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-active");
+          } else {
+            entry.target.classList.remove("reveal-active");
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: "-20px 0px -20px 0px",
+      },
+    );
+
+    const revealElements = document.querySelectorAll(".reveal-on-scroll");
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
+  const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push("/thank-you");
+  };
+
+  const handleBrochureSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsBrochureModalOpen(false);
+    window.open(
+      "https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf",
+      "_blank",
+    );
+    router.push("/thank-you");
+  };
+
+  return (
+    <div className="bg-background text-foreground">
+      {" "}
+      {/* Header Section */}{" "}
+      <header
+        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+          isScrolled
+            ? "bg-paper/95 backdrop-blur-md shadow-sm border-b border-border py-4 text-ink"
+            : "absolute bg-transparent py-6 text-paper"
+        }`}
+      >
+        {" "}
+        <div className="container-editorial flex items-center justify-between">
+          {" "}
+          <Link href="/" className="flex items-center gap-3 leading-none z-50">
+            {" "}
+            <Image
+              src={BRAND_LOGO}
+              alt="Krishna Group logo"
+              width={160}
+              height={48}
+              className={`h-12 w-auto transition-all duration-300 ${
+                isScrolled ? "" : "brightness-0 invert"
+              }`}
+              priority
+            />
           </Link>
           {/* Desktop Navigation */}
           <nav
