@@ -412,35 +412,34 @@ export default function Home() {
         <img
           src={HERO_IMAGE}
           alt="Krishna Unnatti building exterior elevation"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-top"
         />
         <div
           className="absolute inset-0"
           style={{ background: "var(--gradient-hero)" }}
         />
-        <div className="relative z-10 container-editorial h-full flex flex-col justify-end pb-24 md:pb-32">
-          <div className="animate-fade-up max-w-3xl text-paper">
+        <div className="relative z-10 container-editorial h-full flex flex-col justify-end pb-16 md:pb-24">
+          <div className="animate-fade-up max-w-2xl text-paper">
             <p className="eyebrow" style={{ color: "var(--color-gold)" }}>
               <span className="rule" />
               Now Unveiling · Alwarpet, Chennai
             </p>
-            <h1 className="mt-6 font-display text-6xl md:text-8xl leading-[0.95] tracking-tight">
+            <h1 className="mt-4 font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
               A rare urban
               <br />
-              <em className="text-gold not-italic font-light italic">retreat</em>{" "}
-              for the
+              <span className="text-gold font-light italic">retreat</span> for the
               <br />
               discerning few.
             </h1>
-            <p className="mt-8 max-w-xl text-paper/80 text-base md:text-lg leading-relaxed font-sans font-light">
+            <p className="mt-5 max-w-xl text-paper/85 text-sm md:text-base leading-relaxed font-sans font-light">
               Krishna Unnatti is a boutique residence of just five premium 3 BHK
               homes -each 2,082 sq.ft -designed for those who value privacy,
               comfort and a prime Chennai address.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#enquire"
-                className="inline-flex items-center gap-2 bg-paper text-ink px-8 py-4 text-xs uppercase tracking-[0.28em] hover:bg-gold transition-colors font-semibold"
+                className="inline-flex items-center gap-2 bg-paper text-ink px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-gold transition-colors font-semibold"
               >
                 Enquire Now
               </a>
@@ -448,7 +447,7 @@ export default function Home() {
                 href="https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-paper/50 text-paper px-8 py-4 text-xs uppercase tracking-[0.28em] hover:bg-paper hover:text-ink transition-colors font-semibold"
+                className="inline-flex items-center gap-2 border border-paper/50 text-paper px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-paper hover:text-ink transition-colors font-semibold"
               >
                 Download Brochure
               </a>
@@ -462,11 +461,11 @@ export default function Home() {
               ["2,082", "Sq.ft each"],
               ["3 BHK", "Configuration"],
             ].map(([val, desc]) => (
-              <div key={desc} className="py-5 px-4 text-center">
-                <div className="font-display text-3xl md:text-4xl text-gold">
+              <div key={desc} className="py-3 px-2 text-center">
+                <div className="font-display text-2xl md:text-3xl text-gold">
                   {val}
                 </div>
-                <div className="text-[10px] uppercase tracking-[0.28em] text-paper/70 mt-1 font-semibold">
+                <div className="text-[9px] uppercase tracking-[0.24em] text-paper/70 mt-0.5 font-semibold">
                   {desc}
                 </div>
               </div>
@@ -668,18 +667,24 @@ export default function Home() {
               The comforts of a quiet building.
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border reveal-child reveal-delay-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-child reveal-delay-200">
             {COMMUNITY_PERKS.map((perk, idx) => (
               <div
                 key={perk}
-                className="bg-background p-8 flex items-start gap-4 hover:bg-cream transition-colors"
+                className="relative overflow-hidden group bg-paper border border-border/50 p-8 hover:-translate-y-1 hover:border-gold/50 transition-all duration-500 ease-out hover:shadow-xl hover:shadow-gold/[0.02] flex flex-col min-h-[160px] justify-between"
               >
-                <span className="font-display text-gold text-xl leading-none pt-1">
+                <div className="absolute right-4 bottom-2 font-display text-8xl text-ink/[0.03] group-hover:text-gold/[0.08] transition-colors duration-500 font-semibold select-none pointer-events-none">
                   {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm text-foreground leading-relaxed font-sans font-medium">
-                  {perk}
-                </span>
+                </div>
+                <div className="relative z-10">
+                  <div className="font-display text-xs text-gold uppercase tracking-[0.2em] mb-4 bg-cream/40 border border-gold/15 px-3 py-1 rounded-full w-fit">
+                    Perk {String(idx + 1).padStart(2, "0")}
+                  </div>
+                  <p className="text-sm md:text-base text-foreground/90 leading-relaxed font-sans font-light">
+                    {perk}
+                  </p>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
             ))}
           </div>
@@ -840,15 +845,45 @@ export default function Home() {
       </section>
 
       {/* Footer Section */}
-      <footer className="bg-ink text-paper/70 py-12">
-        <div className="container-editorial flex flex-wrap items-center justify-between gap-4 text-xs font-sans font-semibold">
-          <div className="font-display text-paper text-xl font-normal">
-            Krishna Unnatti · Alwarpet
+      <footer className="bg-ink text-paper/60 pt-16 pb-28 md:py-16 border-t border-paper/10">
+        <div className="container-editorial">
+          {/* Top Row */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-10 border-b border-paper/10">
+            <div>
+              <div className="font-display text-paper text-2xl tracking-wide font-normal">
+                Krishna Unnatti
+              </div>
+              <p className="text-[10px] text-paper/40 mt-1 uppercase tracking-[0.2em] font-sans">
+                Premium Residences · Alwarpet, Chennai
+              </p>
+            </div>
+            <div className="text-xs uppercase tracking-[0.24em] font-sans font-semibold text-paper/80">
+              Krishna Group · Est. 1983
+            </div>
           </div>
-          <div className="uppercase tracking-[0.28em]">
-            Krishna Group · Est. 1983
+
+          {/* Bottom Row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 text-xs font-sans text-paper/50">
+            <div className="text-center sm:text-left">
+              © {new Date().getFullYear()} Krishna Group. All rights reserved.
+            </div>
+            
+            <div className="flex items-center gap-2.5 text-[10px] uppercase tracking-[0.15em]">
+              <span>Designed & Developed by</span>
+              <a 
+                href="https://ayatiworks.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="opacity-60 hover:opacity-100 transition-opacity duration-300 inline-flex items-center"
+              >
+                <img 
+                  src="/assets/ayatiworks-logo.svg" 
+                  alt="Ayatiworks" 
+                  className="h-4.5 w-auto brightness-0 invert" 
+                />
+              </a>
+            </div>
           </div>
-          <div>© {new Date().getFullYear()} All rights reserved.</div>
         </div>
       </footer>
 
