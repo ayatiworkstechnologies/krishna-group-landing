@@ -174,6 +174,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedLocationCategory, setExpandedLocationCategory] = useState<string | null>("Education");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
   // Scroll event listener for sticky header transition
   useEffect(() => {
@@ -268,6 +269,12 @@ export default function Home() {
   const handleEnquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert("Thank you -we'll be in touch shortly.");
+  };
+
+  const handleBrochureSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsBrochureModalOpen(false);
+    window.open("https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf", "_blank");
   };
 
   return (
@@ -443,14 +450,12 @@ export default function Home() {
               >
                 Enquire Now
               </a>
-              <a
-                href="https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-brochure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-paper/50 text-paper px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-paper hover:text-ink transition-colors font-semibold"
+              <button
+                onClick={() => setIsBrochureModalOpen(true)}
+                className="inline-flex items-center gap-2 border border-paper/50 text-paper px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-paper hover:text-ink transition-colors font-semibold cursor-pointer"
               >
                 Download Brochure
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -908,6 +913,60 @@ export default function Home() {
           WhatsApp
         </a>
       </div>
+
+      {/* Brochure Modal */}
+      {isBrochureModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-ink/80 backdrop-blur-md animate-fade-in cursor-pointer"
+            onClick={() => setIsBrochureModalOpen(false)}
+          />
+          
+          {/* Modal Content */}
+          <div className="relative bg-paper text-ink max-w-md w-full p-8 md:p-10 shadow-2xl border border-border/40 z-10 animate-fade-up">
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsBrochureModalOpen(false)}
+              className="absolute top-4 right-4 text-muted-foreground hover:text-ink transition-colors p-1 cursor-pointer"
+              aria-label="Close modal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <div className="text-center mb-8">
+              <p className="eyebrow" style={{ color: "var(--color-gold)" }}>
+                <span className="rule" />
+                Brochure Download
+              </p>
+              <h3 className="mt-4 font-display text-3xl">
+                Unlock Krishna Unnatti Details
+              </h3>
+              <p className="mt-2 text-xs text-muted-foreground font-sans font-light">
+                Please provide your contact information to view the digital brochure instantly.
+              </p>
+            </div>
+            
+            <form onSubmit={handleBrochureSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <InputField label="First Name" name="first" />
+                <InputField label="Last Name" name="last" />
+              </div>
+              <InputField label="Email" name="email" type="email" />
+              <InputField label="Phone" name="phone" type="tel" />
+              
+              <button
+                type="submit"
+                className="w-full bg-ink text-paper py-4 mt-6 text-xs uppercase tracking-[0.28em] hover:bg-brick transition-colors font-semibold cursor-pointer"
+              >
+                Submit & Download
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
