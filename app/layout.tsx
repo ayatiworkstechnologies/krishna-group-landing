@@ -16,10 +16,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Krishna Unnatti | Luxury 3 BHK Apartments in Alwarpet, Chennai",
-  description: "Explore Krishna Unnatti by Krishna Group: a boutique collection of five premium 3 BHK apartments (2,082 sq.ft.) for sale in Alwarpet, Chennai. Experience refined living with VRV climate control, Italian marble, and a rooftop terrace garden.",
+  title: "Krishna Unnati | Luxury 3 BHK Apartments in Alwarpet, Chennai",
+  description: "Explore Krishna Unnati by Krishna Group: a boutique collection of five premium 3 BHK apartments (2,082 sq.ft.) for sale in Alwarpet, Chennai. Experience refined living with VRV climate control, Italian marble, and a rooftop terrace garden.",
   keywords: [
-    "Krishna Unnatti",
+    "Krishna Unnati",
     "Krishna Group",
     "apartments in Alwarpet",
     "luxury apartments Chennai",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     canonical: "https://krishnagroup.com/upcoming-unnati-la-project-details/",
   },
   openGraph: {
-    title: "Krishna Unnatti | Luxury 3 BHK Apartments in Alwarpet, Chennai",
-    description: "Discover Krishna Unnatti: exclusive boutique 3 BHK residences in Alwarpet. Refined living by Krishna Group.",
+    title: "Krishna Unnati | Luxury 3 BHK Apartments in Alwarpet, Chennai",
+    description: "Discover Krishna Unnati: exclusive boutique 3 BHK residences in Alwarpet. Refined living by Krishna Group.",
     url: "https://krishnagroup.com/upcoming-unnati-la-project-details/",
     siteName: "Krishna Group",
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: "https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-elevation.jpg",
         width: 1200,
         height: 630,
-        alt: "Krishna Unnatti Exterior Elevation",
+        alt: "Krishna Unnati Exterior Elevation",
       },
     ],
     locale: "en_IN",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Krishna Unnatti | Luxury 3 BHK Apartments in Alwarpet, Chennai",
+    title: "Krishna Unnati | Luxury 3 BHK Apartments in Alwarpet, Chennai",
     description: "Exclusive boutique 3 BHK residences in Alwarpet by Krishna Group.",
     images: ["https://krishnagroup.com/wp-content/uploads/2026/01/unnatii-elevation.jpg"],
   },
@@ -82,4 +82,3 @@ export default function RootLayout({
     </html>
   );
 }
-

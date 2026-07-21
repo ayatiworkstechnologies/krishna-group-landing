@@ -31,7 +31,8 @@ import {
 } from "lucide-react";
 
 // Image Asset Definitions
-const HERO_IMAGE = "/assets/unnatii-banner.webp";
+const HERO_IMAGE = "/assets/desk-banner.png";
+const HERO_IMAGE_MOBILE = "/assets/mobile-banner.png";
 const ENQUIRE_BG_IMAGE = "/assets/terrace-garden.webp";
 const BRAND_LOGO = "/assets/krishna-group-logo.svg";
 
@@ -338,187 +339,204 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground">
       {/* Header Section */}
+      {/* ================= HEADER ================= */}
       <header
-        className={`fixed left-0 right-0 top-0 z-30 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-paper/95 py-4 text-ink shadow-sm backdrop-blur-md border-b border-border"
-            : "bg-ink/20 py-7 text-paper backdrop-blur-[2px]"
+            ? "bg-paper/95 backdrop-blur-xl border-b border-border shadow-sm py-4"
+            : "bg-transparent py-6"
         }`}
       >
-        <div className="container-editorial grid grid-cols-[1fr_auto_1fr] items-center">
+        <div className="container-editorial flex items-center justify-between">
+          {/* Logo */}
           <Link
             href="/"
-            className="z-50 flex items-center gap-4 leading-none md:gap-5"
-            aria-label="Krishna Group Unnati home"
+            className="flex items-center gap-4 shrink-0"
+            aria-label="Krishna Group Unnati"
           >
             <Image
               src={BRAND_LOGO}
-              alt="Krishna Group logo"
-              width={132}
-              height={48}
-              className={`h-14 w-auto transition-all duration-300 md:h-[62px] ${
+              alt="Krishna Group"
+              width={150}
+              height={56}
+              priority
+              className={`h-14 w-auto transition-all duration-300 md:h-16 ${
                 isScrolled ? "" : "brightness-0 invert"
               }`}
-              priority
             />
-            <span
-              className={`hidden h-10 w-px md:block ${
-                isScrolled ? "bg-ink/25" : "bg-paper/35"
-              }`}
-            />
-            <span className="hidden flex-col md:flex">
-              <span className="font-display text-[2rem] font-medium uppercase leading-none tracking-[0.04em]">
-                UNNATI
-              </span>
-              <span className="mt-3 text-[0.7rem] font-semibold uppercase leading-none tracking-[0.42em] opacity-70">
-                Krishna Group - Est. 1983
-              </span>
-            </span>
           </Link>
+
           {/* Desktop Navigation */}
-          <nav
-            className={`hidden items-center gap-9 text-sm font-semibold transition-colors duration-300 md:flex ${
-              isScrolled ? "text-ink/80" : "text-paper/90"
-            }`}
-          >
-            <Link
-              href="#overview"
-              className="nav-link-minimal hover:text-current transition-colors"
+          <div className="hidden lg:flex items-center gap-12">
+            <nav
+              className={`flex items-center gap-8 text-sm font-medium transition-colors ${
+                isScrolled ? "text-ink/80" : "text-paper"
+              }`}
             >
-              Overview
-            </Link>
-            <Link
-              href="#gallery"
-              className="nav-link-minimal hover:text-current transition-colors"
+              <Link
+                href="#overview"
+                className="hover:text-gold transition-colors"
+              >
+                Overview
+              </Link>
+
+              <Link
+                href="#gallery"
+                className="hover:text-gold transition-colors"
+              >
+                Gallery
+              </Link>
+
+              <Link href="#plans" className="hover:text-gold transition-colors">
+                Floor Plans
+              </Link>
+
+              <Link href="#specs" className="hover:text-gold transition-colors">
+                Specifications
+              </Link>
+
+              <Link
+                href="#location"
+                className="hover:text-gold transition-colors"
+              >
+                Location
+              </Link>
+            </nav>
+
+            <button
+              type="button"
+              onClick={() => setIsBrochureModalOpen(true)}
+              className={`px-7 py-3 text-xs uppercase tracking-[0.28em] font-semibold border transition-all duration-300 ${
+                isScrolled
+                  ? "border-ink text-ink hover:bg-ink hover:text-paper"
+                  : "border-paper text-paper hover:bg-paper hover:text-ink"
+              }`}
             >
-              Gallery
-            </Link>
-            <Link
-              href="#plans"
-              className="nav-link-minimal hover:text-current transition-colors"
-            >
-              Floor Plans
-            </Link>
-            <Link
-              href="#specs"
-              className="nav-link-minimal hover:text-current transition-colors"
-            >
-              Specifications
-            </Link>
-            <Link
-              href="#location"
-              className="nav-link-minimal hover:text-current transition-colors"
-            >
-              Location
-            </Link>
-          </nav>
+              Enquire
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
           <button
             type="button"
-            onClick={() => setIsBrochureModalOpen(true)}
-            className={`hidden justify-self-end border px-7 py-3.5 text-xs font-bold uppercase tracking-[0.36em] transition-colors md:inline-flex ${
-              isScrolled
-                ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
-                : "border-paper/70 text-paper hover:bg-paper hover:text-ink"
-            }`}
-          >
-            ENQUIRE
-          </button>
-          {/* Mobile Menu Toggle button */}
-          <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 z-50 focus:outline-none cursor-pointer"
-            aria-label="Toggle menu"
+            className="relative flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+            aria-label="Toggle Menu"
           >
             <span
-              className={`h-0.5 w-6 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-              } ${isMobileMenuOpen ? "translate-y-2 rotate-45 bg-paper" : ""}`}
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                isScrolled ? "bg-ink" : "bg-paper"
+              } ${isMobileMenuOpen ? "translate-y-2 rotate-45 !bg-paper" : ""}`}
             />
+
             <span
-              className={`h-0.5 w-6 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                isScrolled ? "bg-ink" : "bg-paper"
               } ${isMobileMenuOpen ? "opacity-0" : ""}`}
             />
+
             <span
-              className={`h-0.5 w-6 transition-all duration-300 ${
-                isScrolled && !isMobileMenuOpen ? "bg-ink" : "bg-paper"
-              } ${isMobileMenuOpen ? "-translate-y-2 -rotate-45 bg-paper" : ""}`}
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                isScrolled ? "bg-ink" : "bg-paper"
+              } ${
+                isMobileMenuOpen ? "-translate-y-2 -rotate-45 !bg-paper" : ""
+              }`}
             />
           </button>
         </div>
-        {/* Mobile Navigation Drawer */}
+
+        {/* Mobile Menu */}
         <div
-          className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-ink/95 backdrop-blur-lg transition-all duration-500 ease-in-out md:hidden ${
+          className={`fixed inset-0 z-40 bg-ink/95 backdrop-blur-xl transition-all duration-500 lg:hidden ${
             isMobileMenuOpen
-              ? "translate-x-0 opacity-100 pointer-events-auto"
+              ? "translate-x-0 opacity-100"
               : "translate-x-full opacity-0 pointer-events-none"
           }`}
         >
-          <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
+          <div className="flex h-full flex-col items-center justify-center gap-8">
             <Link
               href="#overview"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
+              className="font-display text-3xl text-paper hover:text-gold"
             >
               Overview
             </Link>
+
             <Link
               href="#gallery"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
+              className="font-display text-3xl text-paper hover:text-gold"
             >
               Gallery
             </Link>
+
             <Link
               href="#plans"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
+              className="font-display text-3xl text-paper hover:text-gold"
             >
               Floor Plans
             </Link>
+
             <Link
               href="#specs"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
+              className="font-display text-3xl text-paper hover:text-gold"
             >
               Specifications
             </Link>
+
             <Link
               href="#location"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
+              className="font-display text-3xl text-paper hover:text-gold"
             >
               Location
             </Link>
+
             <button
               type="button"
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 setIsBrochureModalOpen(true);
               }}
-              className="mt-4 border border-paper/40 text-paper text-xs uppercase tracking-[0.24em] px-8 py-3.5 hover:bg-paper hover:text-ink transition-colors font-semibold"
+              className="mt-6 border border-paper px-8 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-paper transition hover:bg-paper hover:text-ink"
             >
               Enquire Now
             </button>
-          </nav>
+          </div>
         </div>
       </header>
       {/* Hero Section */}
-      <section className="relative min-h-[520px] w-full overflow-hidden bg-ink md:aspect-[128/89] md:min-h-0">
+      {/* ================= HERO ================= */}
+      <section className="relative min-h-[600px] h-[100dvh] w-full overflow-hidden bg-ink">
+        {/* Desktop Background Image */}
         <Image
           src={HERO_IMAGE}
-          alt="Krishna Unnati building exterior elevation"
+          alt="Krishna Unnati Desktop"
           fill
           priority
-          sizes="70vw"
-          className="object-cover object-center"
+          sizes="100vw"
+          className="hidden md:block object-cover object-center"
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: "var(--gradient-hero)" }}
+
+        {/* Mobile Background Image */}
+        <Image
+          src={HERO_IMAGE_MOBILE}
+          alt="Krishna Unnati Mobile"
+          fill
+          priority
+          sizes="100vw"
+          className="block md:hidden object-cover object-center"
         />
-        <div className="relative z-10 container-editorial flex min-h-[520px] flex-col justify-end pb-16 md:absolute md:inset-0 md:min-h-0 md:pb-10">
-          <div className="animate-fade-up max-w-2xl text-paper">
+
+        {/* Dark Overlay */}
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10" /> */}
+
+        {/* Golden Bottom Fade */}
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="relative z-10 container-editorial h-full flex flex-col justify-end pb-24 md:pb-32">
+          <div className="animate-fade-up max-w-3xl text-paper">
             <p className="eyebrow" style={{ color: "var(--color-gold)" }}>
               <span className="rule" />
               Now Unveiling · Alwarpet, Chennai
@@ -532,7 +550,7 @@ export default function Home() {
               discerning few.
             </h1>
             <p className="mt-5 max-w-xl text-paper/85 text-sm md:text-base leading-relaxed font-sans font-light">
-              Krishna Unnati is a boutique residence of just five premium 3 BHK
+              Krishna Unnatti is a boutique residence of just five premium 3 BHK
               homes -each 2,082 sq.ft -designed for those who value privacy,
               comfort and a prime Chennai address.
             </p>
@@ -553,6 +571,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-paper/15 backdrop-blur-sm bg-ink/50">
           <div className="container-editorial grid grid-cols-3 divide-x divide-paper/15 text-paper">
             {[

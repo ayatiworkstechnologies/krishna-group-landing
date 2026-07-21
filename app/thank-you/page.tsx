@@ -2,13 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Download, MessageCircle } from "lucide-react";
 
 export default function ThankYouPage() {
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col justify-between">
       {/* Header / Nav */}
-      <header className="border-b border-border/40 py-6 bg-paper/50 backdrop-blur-md">
+      <header className="border-b border-border/40 bg-paper/95 py-5 shadow-sm backdrop-blur-md">
         <div className="container-editorial flex items-center justify-between">
           <Link 
             href="/" 
@@ -17,9 +18,29 @@ export default function ThankYouPage() {
             <ArrowLeft className="h-4 w-4" />
             Back to Home
           </Link>
-          <div className="font-display text-xl text-ink">
-            Krishna Unnatti
-          </div>
+          <Link
+            href="/"
+            aria-label="Krishna Group Unnati home"
+            className="flex items-center gap-4 leading-none"
+          >
+            <Image
+              src="/assets/krishna-group-logo.svg"
+              alt="Krishna Group logo"
+              width={132}
+              height={48}
+              className="h-12 w-auto"
+              priority
+            />
+            <span className="hidden h-8 w-px bg-ink/25 md:block" />
+            <span className="hidden flex-col md:flex">
+              <span className="font-display text-2xl font-medium uppercase leading-none tracking-[0.04em]">
+                UNNATI
+              </span>
+              <span className="mt-2 text-[0.62rem] font-semibold uppercase leading-none tracking-[0.38em] text-ink/60">
+                Krishna Group - Est. 1983
+              </span>
+            </span>
+          </Link>
         </div>
       </header>
 
@@ -39,7 +60,7 @@ export default function ThankYouPage() {
               Thank you for your interest.
             </h1>
             <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-sans font-light max-w-md mx-auto">
-              Our team has received your details. A representative from Krishna Group will connect with you shortly to assist with your inquiry and schedule your private viewing.
+              Our team has received your details. A representative from Krishna Group will connect with you shortly to assist with your enquiry and schedule your private viewing.
             </p>
           </div>
 
@@ -69,9 +90,12 @@ export default function ThankYouPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 py-8 bg-paper/10 text-center text-xs text-muted-foreground font-sans">
-        <div>
+      <footer className="border-t border-paper/10 bg-ink py-8 text-paper/60">
+        <div className="container-editorial flex flex-col items-center justify-between gap-4 text-center text-xs font-sans sm:flex-row sm:text-left">
           © {new Date().getFullYear()} Krishna Group. All rights reserved.
+          <div className="text-[10px] uppercase tracking-[0.2em]">
+            Krishna Unnati · Alwarpet, Chennai
+          </div>
         </div>
       </footer>
     </div>
