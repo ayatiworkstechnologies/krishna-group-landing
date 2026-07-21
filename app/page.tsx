@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Lenis from "lenis";
 import {
@@ -290,12 +292,15 @@ export default function Home() {
           }`}
       >
         <div className="container-editorial flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 leading-none z-50">
-            <img
+          <Link href="/" className="flex items-center gap-3 leading-none z-50">
+            <Image
               src={BRAND_LOGO}
               alt="Krishna Group logo"
+              width={160}
+              height={48}
               className={`h-12 w-auto transition-all duration-300 ${isScrolled ? "" : "brightness-0 invert"
                 }`}
+              priority
             />
             <div className="flex flex-col">
               <span className="font-display text-2xl tracking-wide font-semibold">
@@ -308,31 +313,31 @@ export default function Home() {
                 Krishna Group · Est. 1983
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav
             className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${isScrolled ? "text-ink/80" : "text-paper/90"
               }`}
           >
-            <a href="#overview" className="nav-link-minimal hover:text-current transition-colors">
+            <Link href="#overview" className="nav-link-minimal hover:text-current transition-colors">
               Overview
-            </a>
-            <a href="#gallery" className="nav-link-minimal hover:text-current transition-colors">
+            </Link>
+            <Link href="#gallery" className="nav-link-minimal hover:text-current transition-colors">
               Gallery
-            </a>
-            <a href="#plans" className="nav-link-minimal hover:text-current transition-colors">
+            </Link>
+            <Link href="#plans" className="nav-link-minimal hover:text-current transition-colors">
               Floor Plans
-            </a>
-            <a href="#specs" className="nav-link-minimal hover:text-current transition-colors">
+            </Link>
+            <Link href="#specs" className="nav-link-minimal hover:text-current transition-colors">
               Specifications
-            </a>
-            <a href="#location" className="nav-link-minimal hover:text-current transition-colors">
+            </Link>
+            <Link href="#location" className="nav-link-minimal hover:text-current transition-colors">
               Location
-            </a>
+            </Link>
           </nav>
 
-          <a
+          <Link
             href="#enquire"
             className={`hidden md:inline-flex items-center gap-2 border text-xs uppercase tracking-[0.24em] px-5 py-2.5 transition-colors font-semibold ${isScrolled
               ? "border-ink/40 text-ink hover:bg-ink hover:text-paper"
@@ -340,7 +345,7 @@ export default function Home() {
               }`}
           >
             Enquire
-          </a>
+          </Link>
 
           {/* Mobile Menu Toggle button */}
           <button
@@ -371,58 +376,60 @@ export default function Home() {
             }`}
         >
           <nav className="flex flex-col items-center gap-8 text-xl text-paper/90 font-medium">
-            <a
+            <Link
               href="#overview"
               onClick={() => setIsMobileMenuOpen(false)}
               className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
             >
               Overview
-            </a>
-            <a
+            </Link>
+            <Link
               href="#gallery"
               onClick={() => setIsMobileMenuOpen(false)}
               className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
             >
               Gallery
-            </a>
-            <a
+            </Link>
+            <Link
               href="#plans"
               onClick={() => setIsMobileMenuOpen(false)}
               className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
             >
               Floor Plans
-            </a>
-            <a
+            </Link>
+            <Link
               href="#specs"
               onClick={() => setIsMobileMenuOpen(false)}
               className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
             >
               Specifications
-            </a>
-            <a
+            </Link>
+            <Link
               href="#location"
               onClick={() => setIsMobileMenuOpen(false)}
               className="nav-link-minimal hover:text-gold transition-colors tracking-wide font-display text-2xl"
             >
               Location
-            </a>
-            <a
+            </Link>
+            <Link
               href="#enquire"
               onClick={() => setIsMobileMenuOpen(false)}
               className="mt-4 border border-paper/40 text-paper text-xs uppercase tracking-[0.24em] px-8 py-3.5 hover:bg-paper hover:text-ink transition-colors font-semibold"
             >
               Enquire Now
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
       <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-        <img
+        <Image
           src={HERO_IMAGE}
           alt="Krishna Unnatti building exterior elevation"
-          className="absolute inset-0 h-full w-full object-cover object-top"
+          fill
+          priority
+          className="object-cover object-top"
         />
         <div
           className="absolute inset-0"
@@ -447,12 +454,12 @@ export default function Home() {
               comfort and a prime Chennai address.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
+              <Link
                 href="#enquire"
                 className="inline-flex items-center gap-2 bg-paper text-ink px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-gold transition-colors font-semibold"
               >
                 Enquire Now
-              </a>
+              </Link>
               <button
                 onClick={() => setIsBrochureModalOpen(true)}
                 className="inline-flex items-center gap-2 border border-paper/50 text-paper px-6 py-3.5 text-xs uppercase tracking-[0.24em] hover:bg-paper hover:text-ink transition-colors font-semibold cursor-pointer"
@@ -789,10 +796,11 @@ export default function Home() {
 
       {/* Enquiry Form Section */}
       <section id="enquire" className="relative py-24 md:py-32 overflow-hidden reveal-on-scroll">
-        <img
+        <Image
           src={ENQUIRE_BG_IMAGE}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          className="object-cover"
           aria-hidden={true}
         />
         <div className="absolute inset-0 bg-ink/85" />
@@ -888,9 +896,11 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="opacity-60 hover:opacity-100 transition-opacity duration-300 inline-flex items-center"
               >
-                <img 
+                <Image 
                   src="/assets/ayatiworks-logo.svg" 
                   alt="Ayatiworks" 
+                  width={96}
+                  height={21}
                   className="h-4.5 w-auto brightness-0 invert" 
                 />
               </a>
@@ -907,12 +917,12 @@ export default function Home() {
         >
           Call
         </a>
-        <a
+        <Link
           href="#enquire"
           className="py-4 text-center border-r border-paper/10 bg-brick hover:bg-brick/90 text-white transition-colors"
         >
           Enquire
-        </a>
+        </Link>
         <a
           href="https://wa.me/917824001904"
           className="py-4 text-center hover:text-gold transition-colors"
@@ -1002,11 +1012,12 @@ function GalleryImage({
 }) {
   return (
     <figure className={`relative overflow-hidden group ${className}`}>
-      <img
+      <Image
         src={src}
         alt={label}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        fill
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <figcaption className="absolute bottom-3 left-3 bg-paper/90 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-ink font-sans font-semibold">
         {label}
@@ -1041,11 +1052,13 @@ function InputField({
 
 function FloorPlanImage({ variant }: { variant: number }) {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-white p-2 md:p-6 rounded border border-border">
-      <img
+    <div className="w-full h-[300px] md:h-[450px] flex items-center justify-center bg-white p-2 md:p-6 rounded border border-border relative">
+      <Image
         src={FLOOR_PLAN_IMAGES[variant]}
         alt={FLOOR_PLAN_LABELS[variant]}
-        className="max-w-full max-h-[300px] md:max-h-[450px] object-contain transition-opacity duration-300"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-contain p-2 md:p-6 transition-opacity duration-300"
       />
     </div>
   );
